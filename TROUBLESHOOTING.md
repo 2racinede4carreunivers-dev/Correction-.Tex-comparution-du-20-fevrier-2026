@@ -36,7 +36,7 @@ Les puissances $n_i$ sont élevées...
 
 **Problème :**
 ```latex
-$n_$ ou $n^$ ou $n_\text{max sans accolade}$
+$n_$ ou $n^$ ou $n_\text{max sans accolades}$
 ```
 
 **Solution :**
