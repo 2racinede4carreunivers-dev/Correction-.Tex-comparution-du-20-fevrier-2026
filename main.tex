@@ -1,0 +1,4749 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------------------------------------------------
+%  LANGUE ET POLICE (FRANÇAIS + POLICE SÉRIEUSE)
+% ----------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+% Police sérieuse, adaptée aux documents assermentés
+\usepackage{mathpazo}
+
+% ----------------------------------------------------
+%  MATHÉMATIQUES (OBLIGATOIRE POUR LES FORMULES)
+% ----------------------------------------------------
+\usepackage{amsmath}
+
+% ----------------------------------------------------
+%  MISE EN PAGE
+% ----------------------------------------------------
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{geometry}
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% ----------------------------------------------------
+%  IMAGES (AVEC [H] POUR ÉVITER LE GLISSEMENT)
+% ----------------------------------------------------
+\usepackage{graphicx}
+\usepackage{float}
+
+% ----------------------------------------------------
+%  ENCADRÉS
+% ----------------------------------------------------
+\usepackage{framed}
+
+% ----------------------------------------------------
+%  PYTHONTEX
+% ----------------------------------------------------
+\usepackage{pythontex}
+
+% ----------------------------------------------------
+%  TITRE
+% ----------------------------------------------------
+\title{\textbf{La géométrie du spectre des nombres premiers}\\
+\vspace{0.5cm}
+\large Par Philippe Thomas Savard}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+% ----------------------------------------------------
+%  AVERTISSEMENT
+% ----------------------------------------------------
+\begin{framed}
+\small
+Ce document a été rédigé sans financement, sans avantage matériels, ou symbolique, et dans une totale liberté de conscience et de jugement. Les influences pour altérer la conscience de la part des institutions voués à la connaissance et au savoir sont bien présente, puisque le constat de leur oublie volontaire de la liberté fondamental Canadienne, concernant la conscience, est des plus présente quoi habituel et perpétuel, lorsqu’il est question de ces institutions vouées plus certainement a la fraude qu’à la connaissance. Malgré la handicape. Qu’imposent ces institutions le document dont vous prenez connaissance, est tout de même produit en toute conscience et est le fruit de ma libre expression créative altéré par ces malhonnêtes institution qualifiable d’Arlequin. Le vocabulaire employé, ne vise ni à choquer, ni à offenser : il cherche simplement à exprimer une pensée sincère, parfois audacieuse, toujours bienveillante, par son originalité, unicité et sa nature remarquable. Le sens, style et le choix des opinions, de ce document bien qu’utilisé pour la démonstration d’une attitude liée à un comportement non catégorisé, par la littérature a l’heure actuel. Ce document, n’est pas une forme d’expression qui voudrait être un appelle à la révolte, ou à la rébellion des instances d’autorités en fonction dans notre société et nos vie, tel l’autorité de la justice et de la loi. Dans la même veine, ce document ne cherche pas de quelconque manière, à diminuer l’autorité policière, nécessaire à notre société et à la paix commune et collective. Les faits démontrés dans ce document visent une élite en particulier, mais dans un but qui est bien évident, d’harmonie sociale et individuel tant pour l’âme, l’amour, la paix, la liberté dans notre réalité tangible que pour celle qui pourrait être immatériel, où encore inconnu et inexploré.
+
+Ce texte est le fruit d’une expérience de pensée, illustrée par des calculs mathématiques, des schémas, des tableaux, ainsi que des exemples et explications. L’auteur, n’est pas initié aux mathématiques, au sens académique : il ne possède aucune formation spécialisée dans ce domaine. Il est ouvrier, et c’est en dehors des sentiers balisés qu’il a conçu ce document — par pur plaisir intellectuel et en conséquence d’un intérêt profond pour les mathématiques.
+
+Bonne lecture :
+\end{framed}
+
+\newpage
+
+% ----------------------------------------------------
+%  TABLE DES MATIÈRES
+% ----------------------------------------------------
+
+\newpage
+
+% ----------------------------------------------------
+%  DÉBUT DU DOCUMENT
+% ----------------------------------------------------
+
+
+
+
+
+% Exemple PythonTeX
+
+\begin{pycode}
+print("PythonTeX fonctionne correctement.")
+\end{pycode}
+\section{Introduction}
+
+Le document que vous vous apprêtez à lire s’inscrit dans une quête quotidienne, intime et persistante, qui habite l’auteur depuis toujours. Une quête qui, probablement, ne le quittera jamais.
+
+Très jeune, il s’intéresse à la distribution des nombres entiers lorsqu’on les énumère un à un dans l’ordre croissant. Il était fasciné par une propriété simple, mais intrigante : entre deux nombres entiers consécutifs, il ne peut jamais y avoir moins qu’une unité. Cette vérité, enseignée dès l’école primaire, éveilla en lui une profonde curiosité.
+
+À cette époque, il tenta une expérience naïve, mais révélatrice : ajouter successivement la valeur de 1 unité à l’ordre croissant de nombres pairs. Par exemple, 1 + 50 = 51, puis 1 + 100 = 101, 1 + 200 = 201, et ainsi de suite jusqu’à 1 + 800 = 801. Il observa que les rapports entre ces ajouts — 50/100, 100/200, 200/400, 400/800 — donnaient tous 1/2. Il se mit à penser que, d’une certaine manière, les nombres entiers, mis en relation par ce procédé, semblaient tous séparés par une fraction constante : 1/2.
+
+Plus tard, au début du secondaire, il découvrit les nombres premiers. On lui enseigna qu’un nombre premier est divisible uniquement par 1 et par lui-même. Le manuel scolaire présentait les dix premiers nombres premiers : 2, 3, 5, 7, 11, 13, 17, 19, 23 et 29. L’exercice proposé en classe consistait à identifier le plus grand nombre possible de nombres premiers selon les règles déterminantes pour la nature des nombres premiers.
+
+Philippôt, alors élève, eut l’idée d’appliquer la même méthode que celle utilisée pour les entiers lors de cette activité durant les heures de classe : il remarqua que, mis à part le 2, tous les nombres premiers de la liste étaient impairs. Il prit donc les nombres impairs de mémoire entre 2 et 29, et leur appliqua les mêmes ajouts : +50, +100, +200, +400, +800. Quelques jours plus tard, l’enseignant annonça qu’il était l’élève ayant trouvé le plus de nombres premiers dans la classe. Sa stratégie semblait révéler une intuition précoce d’un problème mathématique complexe : l’énigme de Bernhard Riemann et la fameuse conjecture de la fonction zêta de Riemann.
+
+Ce souvenir resta enfoui pendant près de vingt ans, jusqu’en 2016. Sans se rappeler précisément l’exercice scolaire, Philippôt reprit l’expérience avec les nombres premiers de 0 à 109, en excluant 2 et 5. Il appliqua les mêmes ajouts et retraits : $\pm 50$, $\pm 100$, $\pm 200$, $\pm 400$, $\pm 800$. Il constata que 66,66\,\% des nombres ainsi générés étaient premiers.
+
+Mais cela ne le satisfaisait pas encore. C’est à cette époque qu’il commença à lire certains articles sur l’hypothèse de Riemann et à se poser la question fondamentale de cette énigme :
+
+\begin{quote}
+« Est-ce que tous les zéros non triviaux de la fonction zêta de Bernhard Riemann ont bien tous pour partie réelle $1/2$ ? ».
+\end{quote}
+\section{Avant-propos}
+
+Cet article, consacré à la fonction zêta selon les observations de Philippôt, naît d’un intérêt intellectuel profond pour la connaissance et les mathématiques — un intérêt qui habite l’auteur depuis fort longtemps et irrigue ses réflexions les plus intimes.
+
+Mais la détermination à ne jamais abandonner cet exercice de pensée sur la répartition des nombres premiers dans l’ensemble des entiers trouve aussi sa source dans une exagération bien réelle, presque démesurée, qui fait partie intégrante de la vie de l’auteur. Cette exagération, qu’il subit à regret, est celle de certains individus issus des communautés universitaires. Ces derniers, selon lui, tendent à se poser en arbitres autoproclamés de ce qui existe et de ce qui n’existe pas. Leur biais d’autorité est flagrant et fait figure d’opposition avec une caractéristique fondamentale d’un diplômé aux études supérieures, c’est-à-dire qu’un tel diplôme garantit que le diplômé aux études supérieures, par les compétences acquises dans sa formation supérieure générale, compétences qui définissent tout diplômé, est un humaniste. Être un humaniste signifie que l’étudiant diplômé a pris conscience et est pleinement au fait que ce qui se diffuse dans les médias n’est pas la réalité, autrement dit est une fiction. C’est une caractéristique qui peut sembler banale, en effet, dans leur parcours académique, même naïve, mais a l’utilité que la classe non universitaire, par expérience dans sa vie personnelle, l’ouvrier lui-même réalisera tôt ou tard que ce que diffusent les médias n’est pas la réalité et est une fiction. L’idée d’éduquer les étudiants aux études supérieures sur l’idée de l’humaniste et de vérifier les compétences sur le sujet est une sécurité. Toute personne se disant diplômée au niveau supérieur qui tenterait de persuader une personne à l’aide d’un appareil diffusant un média est un fraudeur et n’a pas à exercer de pouvoir lié à ses fonctions découlant d’une diplomation supérieure.
+
+L’ouvrier détient alors un moyen simple pour le protéger de l’agissement frauduleux académique de certains voulant sans aucun doute handicaper par leurs vœux pernicieux ces ouvriers et leurs savoir-faire, si nécessaires à leur bien-être, quiétude et à leur condition générale. L’emploi d’hallucinateur est la manière de ces gens ayant un présent violent, dû à leur secret en lien avec ce vœu pernicieux d’handicaper délibérément, par leur fraude à la connaissance, au bien-être individuel et collectif, une atteinte particulièrement androgyne pour déshériter du meilleur jugement leur victime sélectionnée à un âge préscolaire et par le fait même condamnée à leur volonté, conséquence de l’énorme potentiel de leur jeune victime, afin de réaliser leur vol de la connaissance et du savoir.
+
+Philippe Thomas Savard a observé, avec une certaine consternation, un discours réducteur dont le vocabulaire le plus révélateur, lors d’échanges avec la classe universitaire, démontre le biais d’autorité qui se résume souvent à cette formule : « Cela n’existe pas ». En conséquence, dû au fait que le vocabulaire n’est pas le même que celui que le diplômé utilise dans son jargon professionnel, démarcation profonde de ce biais. Il a baptisé cette posture intellectuelle le “ça n’existe pas dire” — une manière de clore toute discussion avant même qu’elle ne commence.
+
+Et comme si cela ne suffisait pas, l’interlocuteur universitaire, après avoir décrété l’inexistence d’une idée, enchaîne souvent avec une seconde formule tout aussi péremptoire : « C’est tout à cause de cela. » S’ensuit alors une mise en scène implicite, un cinglage, où ces individus s’organisent à soumettre à une logique qui n’est reconnue que par celui qui la profère, sans possibilité de réplique. Ce cinglage, ou mise en scène, est le scénario d’une simulation en temps réel, où l’universitaire cherche à provoquer la faute chez qui bon lui semble, pour en venir à disqualifier au niveau de la réputation ces pauvres gens sur qui ils lâchent leur dévolu. Cette faute provoquée de manière désobligeante a pour but de déshériter du meilleur jugement leur victime, afin d’avoir le champ libre pour réaliser en toute quiétude, après diagnostic frauduleux d’aliénation, conséquence de leur hallucinateur, le vol de la connaissance de ceux qu’ils veulent handicaper définitivement et priver les qualités de chacune de leurs victimes et la collectivité des qualités dont ils privent ces mêmes victimes.
+
+Leurs décisions ont pour but d’altérer leur propre compilation des données, afin de minimiser les aspects de certains des individus inclus dans certains ensembles ou groupes formant des données statistiques, pour avantager leur vision personnelle de ce que devrait être la réalité. Ce genre de négligence se traduit immanquablement par l’altération des groupes de référence des bons individus dans leur ensemble respectif, non seulement par la présence de troubles de santé mentale provoquant handicap certain à l’emploi, mais par de réels troubles de santé qui peuvent vous être mortels. Philippe Thomas Savard nomme cette attitude le syndrome du “médecin spécialiste”, ou encore l’idioschizophrénie — un trouble qu’il associe à certaines postures universitaires, et qui, selon lui, reste difficilement perceptible en dehors de ces cercles, mais très audible et observable par l’observation du biais d’autorité type, ainsi que de l’autoréférence et de l’antinomie délibérée pour déshériter.
+\section*{Première partie :\\
+La géométrie du spectre des nombres premiers}
+
+\subsection*{Schéma représentant la fonction zêta dans un plan (x,y,z)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{zeta_philippot_riemann_fonction}
+    \caption{Schéma représentant la fonction zêta dans un plan (x,y,z)}
+\end{figure}
+\subsection*{1 Mouvement du plan cartésien et Tesseract}
+
+En effet, le produit entre le périmètre d’un carré A et la mesure du diamètre d’un carré B est égal au produit du périmètre du carré B et de la mesure du diamètre du carré A.
+Ce produit alternatif à droite est, pour Savard, le résultat du mouvement du Tesseract.
+
+Deux carrés sont représentés :
+\begin{itemize}
+    \item Un carré de 1 × 1
+    \item Un carré de 1.5 × 1.5
+\end{itemize}
+
+Ils expriment les nombres premiers 2 et 3 :
+\begin{itemize}
+    \item 2 × 1 = 2
+    \item 2 × 1.5 = 3
+\end{itemize}
+\subsection*{Mouvement de l’hypercube surface par surface analysé à partir d’un produit alternatif symétrique et asymétrique}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{mouv_symet_tesseract}
+    \caption{Mouvement de l’hypercube surface par surface analysé à partir d’un produit alternatif symétrique et asymétrique}
+\end{figure}
+\subsection*{Produit alternatif symétrique de la figure}
+
+\begin{itemize}
+    \item ABCD × A'D' = AD × A'B'C'D'
+    \item 4 × $\sqrt{4.5}$ = 12 × 6
+    \item 17.2 = 17.2
+\end{itemize}
+\newpage
+\subsection*{Produit alternatif à droite asymétrique}
+
+Cette section présente une variation asymétrique du produit alternatif.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{mouv_asymt_tesseract}
+    \caption{mouv\_asymt\_tesseract}
+\end{figure}
+\subsection*{Produit alternatif asymétrique}
+
+\begin{itemize}
+    \item Aire ABDE = $(\sqrt{8} - 2)^2 = 0.686291501$
+    \item Aire BCEF = $(\sqrt{8} - 2) \times (4 - \sqrt{8}) = 0.9705627483$
+    \item Aire DEGH = $2 \times (\sqrt{8} - 2) = \sqrt{32} - 4$
+    \item Aire EFHI = $2 \times (4 - \sqrt{8}) = 8 - \sqrt{32}$
+\end{itemize}
+
+\subsection*{Représentation des deux carrés asymétriques}
+
+\textbf{Premier carré :}
+\begin{itemize}
+    \item $(8 - \sqrt{32}) \times (1/8) = \sqrt{32} - 4$
+    \item Diamètre = $8 - \sqrt{32}$
+    \item Périmètre = $4 \times (\sqrt{32} - 4)$
+\end{itemize}
+
+\textbf{Deuxième carré :}
+\begin{itemize}
+    \item $0.9705627485 \times (1/8) = 0.686291501$
+    \item Diamètre = $0.9705627485$
+    \item Périmètre = $4 \times 0.686291501$
+\end{itemize}
+
+\subsection*{Produit alternatif}
+
+\begin{itemize}
+    \item $(\sqrt{8} - 2)^2 \times (8 - \sqrt{32}) = 0.9705627483 \times (\sqrt{32} - 4)$
+    \item $(4 - \sqrt{8})^3 = (4 - \sqrt{8})^3$
+\end{itemize}
+
+Le résultat final pour le produit alternatif asymétrique semble révélateur, étant la valeur associable à un cube dû à la valeur de la puissance 3. Point qui permet d’associer le produit alternatif à partir de surfaces de figures symétriques et asymétriques au mouvement d’un tesseract en analysant son mouvement un à un.
+\subsection*{Analyse numérique métrique}
+
+Cette section présente une analyse numérique métrique en lien avec la fonction Zêta de Philippôt.
+
+\subsection*{Explication de la figure}
+
+Sur cette figure, il est possible de voir où se situe l’analyse numérique métrique, fruit de la convolution à partir des plateaux des pyramides à l’intérieur des cubes.
+Elle se situe sur la zone quadrillée et est représentée par une suite de rectangles composés de deux carrés verts.
+
+\subsection*{Analyse numérique métrique approfondie}
+
+Cette section présente une analyse complémentaire de la fonction Zêta de Philippôt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{analyse_num_metr_centre.png}
+    \caption{mouv\_asymt\_tesseract}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{analyse_num_metr_haut.png}
+    \caption{mouv\_asymt\_tesseract}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{analyse_num_metr_bas}
+    \caption{mouv\_asymt\_tesseract}
+\end{figure}
+\subsection*{Sur cette figure, il est possible de voir le repli du tesseract en une suite de paires de cubes 2 × 2, démonstration de ce repli.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{analyse_numérique_cube_3d.png}
+    \caption{mouv\_asymt\_tesseract}
+\end{figure}
+Le schéma ci-dessus est une représentation de l’analyse numérique métrique sous un angle 3D. La suite de paires de cubes grandissant les uns à la suite des autres est le résultat du repli du tesseract exprimé à la figure 2.0. Cette suite de cubes est l’approche figurée que Philippôt met de l’avant pour représenter les différents rapports triangulaires (base)/hauteur = 1/n.
+
+Les droites qui traversent horizontalement la figure et qui passent par les sommets de la suite de cubes forment des élévations remarquables. Ces élévations, dont l’origine est le point de rencontre des élévations en un seul point — l’élévation 0+0 — ont, de cette origine, des mesures de longueurs qui forment une longueur de référence servant de base à des triangles eux-mêmes de 1 de mesure.
+
+Selon l’auteur, ces triangles ont pour leurs trois côtés des mesures correspondant à des côtés de carrés parfaits, à une échelle de grandeur donnée.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{zeta_philippot_riemann_fonction}
+    \caption{Schéma représentant la fonction zêta dans un plan (x,y,z)}
+\end{figure}
+Sous ce schéma sont représentées quatre pyramides, chacune orientée selon une des quatre directions cardinales : deux paires opposées, l’une horizontale, l’autre verticale, décalées également vers l’avant et l’arrière à l’intérieur de quatre cubes. Un hyperplan jaune traverse l’ensemble, déterminant un repli de ces cubes — lesquels délimitent le plan cartésien (x,y,z), allant de zéro à l’infini dans les trois dimensions.
+
+Ces quatre cubes, assimilables à un hypercube, peuvent se replier le long de cet hyperplan jaune, tout en effectuant une rotation sur leur propre axe. La zone quadrillée représente une suite de rectangles, chacun formé de deux carrés, servant de base à une analyse numérique métrique.
+
+Les deux suites — la première et la deuxième — utilisées pour déterminer la valeur des nombres premiers sont définies par les parallélogrammes formés par les mailles du quadrillage à l’intérieur des rectangles. Ces parallélogrammes sont traversés par une ligne bleu foncé, passant par leurs centres longitudinaux.
+
+Les mailles du quadrillage traversent une série de plateaux verts et violets, représentés par des carrés inscrits dans les cubes. Ces plateaux forment un ensemble matriciel projetant, sur les limites des deux suites, la somme de celles‑ci par une projection orthogonale — fruit d’une série d’opérations découlant d’une convolution.
+\subsection*{Expérience de pensée}
+
+Le document présenté par l’auteur constitue une véritable expérience de pensée, illustrée par des calculs et des équations, dans le but de proposer une réponse à l’hypothèse de Riemann dans cette première partie. Cette démarche débute par un parallèle que Philippôt établit à travers la géométrie du spectre des nombres premiers — un environnement dynamique qu’il mobilise comme outil conceptuel pour aborder l’énigme.
+
+Le parallèle qu’il trace repose sur une analogie entre l’analyse granulométrique et ce qu’il nomme l’analyse numérique métrique, une composante de sa géométrie du spectre des nombres premiers. Il imagine donc un monticule de granulat — comme celui qu’on sonde lors d’une analyse granulométrique — où chaque grain, même les plus infimes poussières, serait porteur d’un nombre distinct, réparti sur l’intervalle allant de zéro à l’infini, en fonction des dimensions du monticule.
+
+Lors d’une analyse granulométrique classique, on commence par mesurer les dimensions réelles du monticule : sa hauteur, sa circonférence. Un échantillon représentatif est prélevé à différents endroits, puis mis à l’état SSS (saturé superficiellement sec), pesé avant et après cette mise en condition. Le sol est ensuite soumis à un tamisage pendant un temps déterminé. La quantité de matière passant à travers chaque tamis est mesurée selon une série de tamis calibrés (par exemple : 20 mm, 15 mm, 10 mm, 5 mm…). Ces quantités doivent respecter des normes précises, selon leur poids et leur répartition, pour répondre aux exigences de classification des sols.
+
+Puisque les tamis sont de dimensions connues et espacés de manière régulière, et que les dimensions initiales du monticule ont été relevées, chaque caillou peut théoriquement être retracé dans sa position exacte. Ce processus est valable lorsque le sol analysé est homogène — par exemple, composé uniquement de granulats de 0 à 20 mm. Mais si le sol contient des granulats allant de 0 à 56 mm, il faut alors distinguer deux types : ceux de 0 à 20 mm, et ceux complétant l’intervalle jusqu’à 56 mm. Dans ce cas, un tamis de la série initiale doit être retiré et remplacé par celui correspondant à la nouvelle dimension, en conservant la position qu’occupait le tamis précédent du deuxième type de sol.
+
+Ce principe de substitution de position inspire directement l’auteur dans sa réflexion sur l’analyse numérique métrique. Il y associe une définition qu’il a rencontrée au fil de ses lectures, portant non pas sur la fonction zêta, mais sur la lettre grecque Zêta elle-même :
+
+\begin{quote}
+« Dans le système de numération grecque, le Zêta vaut 7, bien qu’il occupe la sixième position. Ceci est dû à l’ancienne existence du Digamma, situé entre l’Epsilon et le Zêta. »
+\end{quote}
+
+Cette particularité — une valeur qui ne correspond pas à la position — rejoint l’idée de substitution évoquée dans l’analyse granulométrique. C’est ce point commun qui a inspiré à l’auteur sa méthode d’analyse numérique métrique, fondée sur le déplacement, la substitution et la projection des valeurs dans un espace structuré.
+
+Il aborde aussi l’idée d’un échantillon représentatif de l’ensemble des nombres compris dans l’infini. Cet échantillon de départ pour résoudre la question de l’énigme de Bernhard Riemann est \texttt{0123456789}, caractères qui, selon les combinaisons employées, peuvent former tous les nombres de l’ensemble de l’infini.
+\subsection*{Analyse numérique métrique :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ana_aire_trapezes.png}
+    \caption{Schéma représentant la fonction zêta dans un plan (x,y,z)}
+\end{figure}
+\subsection*{Analyse numérique métrique et géométrie des suites :}
+
+Sur ce schéma, on peut observer une représentation de l’analyse numérique métrique. Deux droites orientées horizontalement inscrivent une série de parallélogrammes, formés par des lignes brisées en vert et en jaune. Ces lignes délimitent précisément les sommes de la première et de la deuxième suite, utilisées pour déterminer les nombres premiers.
+
+Les extrémités de ces suites sont situées au sommet des angles obtus des parallélogrammes, identifiés par les lettres A, B, C, D, E, F, G, H. Le tracé des deux suites suit les lignes brisées colorées, alternant de côté tout au long de la figure.
+
+La valeur de la première suite doit toujours être inférieure ou égale à une borne définie. Par exemple, pour le nombre premier 2, cette borne est $1 \div \sqrt{0.512}$. De plus, la somme de la première suite, pour chaque nombre premier auquel elle est associée, doit être supérieure ou égale au rapport triangulaire base/hauteur = $1/2$, et ce, quel que soit le rapport triangulaire $1/n$.
+
+Pour la deuxième suite, c’est le rapport inverse qui doit être respecté : sa valeur doit être inférieure ou égale à la borne correspondante. Par exemple, pour le nombre premier 2, cette valeur est $-\sqrt{4425.3125}$, et elle doit rester inférieure ou égale à tous les rapports triangulaires $1/n$ considérés. Ce principe s’applique à tous les nombres premiers, et ce, pour chaque position dans la figure.
+
+Les lettres A, B, C, D, E, F, G, H forment trois trapèzes successifs : ABCD, CDEF et EFGH. Les aires de ces trapèzes présentent une propriété remarquable : une fois mises en relation, elles entretiennent entre elles un rapport constant de $1/2$.
+
+
+Donc : tu ne trouveras pas directement « allow shell escape » dans les menus d’Overleaf ; l’option n’est simplement pas exposée à l’utilisateur dans la plupart des cas.
+À cette étape, l’auteur, Philippôt, perçoit dans le rapport entre les aires des trapèzes une évidence intuitive — bien que la preuve définitive ne soit pas encore établie — que les parties réelles des zéros non triviaux de la fonction zêta pourraient toutes être égales à $1/2$.
+
+\subsection*{La Méthode de Philippôt :}
+
+La méthode de Philippôt constitue la première étape dans un second effort visant à déterminer les nombres premiers. Il s’agit d’une approche itérative, fondée sur des suites fractionnaires, dont la somme produit un résultat fini à chaque étape.
+
+Selon Philippe Thomas Savard, ces suites permettent de mettre en relation les résultats obtenus à différentes étapes du processus. Une fois les sommes calculées, elles sont comparées entre elles par le biais de rapports. Ce rapprochement semble révéler, à cette deuxième phase, une possibilité d’obtenir une infinité de fois la valeur $1/2$.
+
+Le raisonnement de l’auteur repose sur l’idée que, puisque les zéros non triviaux de la fonction zêta de Bernhard Riemann semblent apparaître une infinité de fois, alors — si cette affirmation est considérée comme absolue — il devrait exister une manière, même hypothétique ou théorique, d’obtenir une infinité de fois le résultat $1/2$. Même si cela ne constitue pas en soi une réponse définitive à l’énigme, parvenir à un tel résultat serait déjà significatif.
+
+L’auteur souhaitait ainsi, dans le pire des cas, réfuter l’énigme par l’absurde : si les résultats avaient démontré qu’il est impossible d’obtenir une telle récurrence de $1/2$, cela aurait pu invalider l’hypothèse. Mais si, au contraire, cette récurrence se manifeste, elle pourrait suggérer une piste vers la résolution de l’énigme.
+\subsection*{Tableau fractionnaire de la méthode de Philippôt — 1ère étape :}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{c c c c c c c c c c c c c}
+11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & Position & Somme \\
+\hline
+ &  &  &  &  &  &  &  & 1/6 & 1/3 & 1/2 &  & =1 \\
+ &  &  &  &  &  &  & 1/12 & 1/6 & 1/4 & 1/2 &  & =1 \\
+ &  &  &  &  &  & 1/24 & 1/12 & 1/8 & 1/4 & 1/2 &  & =1 \\
+ &  &  &  &  & 1/48 & 1/24 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1 \\
+ &  &  &  & 1/96 & 1/48 & 1/32 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1 \\
+ &  &  & 1/192 & 1/96 & 1/64 & 1/32 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1 \\
+ &  & 1/384 & 1/192 & 1/128 & 1/64 & 1/32 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1 \\
+ & 1/768 & 1/384 & 1/256 & 1/128 & 1/64 & 1/32 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1 \\
+1/1536 & 1/768 & 1/512 & 1/256 & 1/128 & 1/64 & 1/32 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1 \\
+\end{tabular}
+\end{table}
+\subsection*{a\_n + a\_{n-1} + \dots + a\_2 + a\_1 =}
+
+Étape 2 pour 7 termes et moins.
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{c c c c c c c c c c c c c}
+11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & Pos. & Som. \\
+\hline
+ &  &  &  &  &  &  &  & 1/12 & 1/6 & 1/4 &  & =1-1/2 \\
+ &  &  &  &  &  &  & 1/24 & 1/12 & 1/8 & 1/2 &  & =1-1/4 \\
+ &  &  &  &  &  & 1/48 & 1/24 & 1/16 & 1/4 & 1/2 &  & =1-1/8 \\
+ &  &  &  &  & 1/96 & 1/48 & 1/32 & 1/8 & 1/4 & 1/2 &  & =1-1/16 \\
+ &  &  &  & 1/192 & 1/96 & 1/64 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1-1/32 \\
+\end{tabular}
+\end{table}
+Soit $n$ un entier tel que $3 \leq n \leq 7$. 
+On construit une suite de $n$ termes notés $(a_1, a_2, \dots, a_n)$, lus de droite à gauche, où :
+
+\begin{itemize}
+    \item $a_1$ (à droite) est toujours égal à $1/2$.
+    \item Pour les positions $i$ allant de $2$ à $n-3$ : 
+    \[
+        a_i = a_{i-1} \times \frac{1}{2}
+    \]
+    \item Pour la position $n-1$ (avant-dernière) :
+    \[
+        a_{n-1} = a_{n-2} \times \frac{2}{3}
+    \]
+    \item Pour la position $n$ (dernière à gauche) :
+    \[
+        a_n = a_{n-1} \times \frac{1}{2}
+    \]
+\end{itemize}
+\subsection*{Étape 2 — suite pour 8 termes et plus.}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{c c c c c c c c c c c c c}
+11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & Pos. & Som. \\
+\hline
+ &  &  &  &  &  &  & 1/384 & 1/192 & 1/128 & 1/32 &  & =1-1/64 \\
+ &  &  &  &  &  & 1/768 & 1/384 & 1/256 & 1/128 & 1/32 &  & =1-1/64 \\
+ &  &  &  &  & 1/1536 & 1/768 & 1/512 & 1/256 & 1/128 & 1/32 &  & =1-1/64 \\
+ &  &  &  & 1/3072 & 1/1536 & 1/1024 & 1/512 & 1/256 & 1/128 & 1/32 &  & =1-1/64 \\
+\end{tabular}
+\end{table}
+\subsection*{Étape 3 pour 7 termes et moins :}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{c c c c c c c c c c c c c}
+11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & Positions & Sommes \\
+\hline
+ &  &  &  &  &  &  &  & 1/24 & 1/12 & 1/8 &  & =1-(1/2+1/4) \\
+ &  &  &  &  &  &  & 1/48 & 1/24 & 1/16 & 1/2 &  & =1-(1/4+1/8) \\
+ &  &  &  &  &  & 1/96 & 1/48 & 1/32 & 1/4 & 1/2 &  & =1-(1/8+1/16) \\
+ &  &  &  &  & 1/192 & 1/96 & 1/64 & 1/8 & 1/4 & 1/2 &  & =1-(1/16+1/32) \\
+ &  &  &  & 1/192 & 1/96 & 1/128 & 1/16 & 1/8 & 1/4 & 1/2 &  & =1-(1/32+1/64) \\
+\end{tabular}
+\end{table}
+Soit une suite de $n$ termes, lue de droite à gauche, avec les termes notés $a_1, a_2, \dots, a_n$, où $a_1$ est le terme le plus petit (à droite) et $a_n$ le plus grand (à gauche).
+
+\begin{itemize}
+    \item Le terme à la position $p$ est remplacé par une expression de la forme :
+    \[
+        -1 \times \left( 1 - (a_p + a_{p+1}) \right)
+    \]
+\end{itemize}
+
+\subsection*{Étape 3 pour 8 termes et plus.}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{c c c c c c c c c c c c c}
+11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & Positions & Sommes \\
+\hline
+ &  &  &  &  &  &  & 1/768 & 1/384 & 1/256 & 1/32 &  & =1-(1/64+1/128) \\
+ &  &  &  &  &  & 1/1536 & 1/768 & 1/512 & 1/256 & 1/32 &  & =1-(1/64+1/128) \\
+ &  &  &  &  & 1/3072 & 1/1536 & 1/1024 & 1/512 & 1/256 & 1/32 &  & =1-(1/64+1/128) \\
+ &  &  &  & 1/6144 & 1/3072 & 1/2048 & 1/1024 & 1/512 & 1/256 & 1/32 &  & =1-(1/64+1/128) \\
+\end{tabular}
+\end{table}
+Pour tout $i$ de $2$ à $n-2$ :
+\[
+a_i = a_{i-1} \times \frac{1}{2}
+\]
+
+\textbf{Avant-dernier terme :}
+\[
+a_{n-1} = a_{n-2} \times \frac{2}{3}
+\]
+
+\textbf{Dernier terme :}
+\[
+a_n = a_{n-1} \times \frac{1}{2}
+\]
+
+\textbf{Substitution à l’étape $k$ :}
+\[
+\text{Valeur} = \frac{1}{2^{k+4}}, \quad \text{insérée à la place de } a_6
+\]
+
+\textbf{Interprétation :}
+\[
+\frac{1/256}{1/128} = \frac{1/128}{1/64} = \dots = \frac{1/n_1}{1/n_2} = \frac{1}{2},
+\]
+une infinité de fois, si l’itération est poursuivie une infinité de fois.
+\subsection{Les nombres premiers et l’emploi du Digamma, suite de la méthode de Philippôt}
+
+Déterminer les nombres premiers est une autre méthode itérative, mais cette fois deux suites sont nécessaires pour les déterminer. Deux suites de racines carrées, qui forment un rapport triangulaire base/hauteur égal à $1/2$. Celui-ci découle du fait de suites de racines carrées formées par la proposition $\sqrt{a^{2} + b^{2}}$. 
+
+Par exemple, pour le nombre premier $29$, qui est le $10^{\text{e}}$ nombre premier, deux suites de $10$ racines carrées, qui sont le produit de la proposition $\sqrt{a^{2} + b^{2}}$, forment les deux suites. Les deux suites, comme dans cet exemple $(29)$, le dixième nombre premier, ont la même quantité de termes que la valeur de la position du nombre premier. La position des nombres premiers positifs commence à $2$, qui est le premier nombre premier, suivi de $3$ le deuxième, de $5$ le troisième, et le $n$-ième nombre premier aura $n$ termes pour les deux suites respectivement. Les deux suites ont toujours la même quantité de termes lorsqu’il s’agit du même nombre premier.
+
+\subsubsection*{Exemple avec trois termes : le nombre premier $5$}
+
+La suite fractionnaire égale à $1$ pour trois fractions, comme dans le tableau expliquant la méthode de Philippôt, est la suivante :
+\[
+\frac{1}{6} + \frac{1}{3} + \frac{1}{2} = 1.
+\]
+
+Dans la section portant sur l’exercice de pensée, il est défini le fonctionnement de la fonction Zêta par un schéma permettant d’observer quatre cubes à l’intérieur desquels il y a quatre pyramides différemment orientées selon le cube. À l’intérieur de celles-ci, plusieurs plateaux aux orientations variées forment des matrices aux opérations déterminées, projetant par le fruit d’une convolution les sommes des valeurs des deux suites sur le quadrillage où est posée l’analyse numérique métrique. 
+
+Les divisions s’étalent sur la longueur d’une sphère de $\sqrt{10}$, que l’auteur utilise pour valeur de $\pi$. Les divisions qui séparent le diamètre de $\sqrt{10}$ en une infinité de parties… Bien sûr, pour le calcul des racines carrées, il faut considérer un reste de $\sqrt{1{,}25}/2$, puisque cette longueur, due au fait que les schémas initiaux ont été produits sur papier, ne permettait pas de tracer une infinité de disques sur ce matériel, freinant donc l’exercice de division à cette longueur.
+\subsubsection*{Validation numérique de la première suite pour le nombre premier $5$}
+
+% On suppose déjà dans le préambule :
+% \usepackage{pythontex}
+
+% On note L = sqrt(1.25)/2 pour alléger mentalement les relations.
+
+% Premier terme :
+\[
+\left(\frac{\sqrt{1.25}}{2} - \frac{1}{2}\right)\times 4 + 2
+= \sqrt{5}
+= \py{ ((1.25**0.5)/2 - 1/2)*4 + 2 }
+\]
+
+% Deuxième terme :
+\[
+\left(\frac{\sqrt{1.25}}{2} - \frac{1}{3}\right)\times 6 + 2
+= \sqrt{11.25}
+= \py{ ((1.25**0.5)/2 - 1/3)*6 + 2 }
+\]
+
+% Troisième terme (corrigé : facteur 12 et non 1/12) :
+\[
+\left(\frac{\sqrt{1.25}}{2} - \frac{1}{6}\right)\times 12 + 2
+= \sqrt{45}
+= \py{ ((1.25**0.5)/2 - 1/6)*12 + 2 }
+\]
+
+% Somme de la première suite :
+\[
+\sqrt{45} + \sqrt{11.25} + \sqrt{5}
+= \sqrt{151.25}
+= \py{ (45**0.5) + (11.25**0.5) + (5**0.5) }
+\]
+
+% Vérification par l'équation donnée :
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{3}\right) - \sqrt{5}
+= \sqrt{151.25}
+= \py{ ((13.203125**0.5)/2 * 2**3) - (5**0.5) }
+\]
+\section*{Validation des suites associées aux nombres premiers 5, 7, 3 et 2}
+
+\subsection*{Somme de la première suite du nombre premier 5}
+
+La somme des trois termes de la première suite associée au nombre premier $5$ est :
+\[
+\sqrt{45} + \sqrt{11.25} + \sqrt{5} = \sqrt{151.25}.
+\]
+
+Vérification :
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{3}\right) - \sqrt{5}
+= \sqrt{151.25}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\sqrt{45} + \sqrt{11.25} + \sqrt{5}
+= \sqrt{151.25}
+= \py{ (45**0.5) + (11.25**0.5) + (5**0.5) }
+\]
+
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{3}\right) - \sqrt{5}
+= \sqrt{151.25}
+= \py{ ((13.203125**0.5)/2 * 2**3) - (5**0.5) }
+\]
+% --- Bloc explicatif 1 ---
+Pour déterminer la deuxième suite pour les suites contenant moins de huit termes, il faut soustraire de la somme de la deuxième suite suivante. Ce travail a été commencé par une suite de dix termes, qui vous sera démontrée dans ce document dans les pages suivantes.
+% -------------------------------------------------------------------
+
+\subsection*{Somme de la première suite du nombre premier 7}
+
+\[
+\left(\frac{\sqrt{13.3125}}{2} \times 2^{4}\right) - \sqrt{5}
+= \sqrt{720}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\left(\frac{\sqrt{13.3125}}{2} \times 2^{4}\right) - \sqrt{5}
+= \sqrt{720}
+= \py{ ((13.3125**0.5)/2 * 2**4) - (5**0.5) }
+\]
+
+% -------------------------------------------------------------------
+
+\subsection*{Somme de la deuxième suite du nombre premier 5}
+
+\[
+\sqrt{720} - \sqrt{5120} = -\sqrt{2000}.
+\]
+
+Vérification :
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{3}\right) - \sqrt{5445}
+= -\sqrt{2000}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\sqrt{720} - \sqrt{5120}
+= -\sqrt{2000}
+= \py{ (720**0.5) - (5120**0.5) }
+\]
+
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{3}\right) - \sqrt{5445}
+= -\sqrt{2000}
+= \py{ ((52.8125**0.5)/2 * 2**3) - (5445**0.5) }
+\]
+
+% -------------------------------------------------------------------
+
+\subsection*{Somme de la deuxième suite du nombre premier 3}
+
+\[
+\sqrt{151.25} - \sqrt{5120}
+= -\sqrt{3511.25}.
+\]
+
+Vérification :
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{2}\right) - \sqrt{5445}
+= -\sqrt{3511.25}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\sqrt{151.25} - \sqrt{5120}
+= -\sqrt{3511.25}
+= \py{ (151.25**0.5) - (5120**0.5) }
+\]
+
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{2}\right) - \sqrt{5445}
+= -\sqrt{3511.25}
+= \py{ ((52.8125**0.5)/2 * 2**2) - (5445**0.5) }
+\]
+
+% -------------------------------------------------------------------
+
+\subsection*{Somme de la première suite du nombre premier 3}
+
+\[
+\sqrt{11.25} + \sqrt{5} - \sqrt{\frac{20}{64}}
+= \sqrt{25.3125}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\sqrt{11.25} + \sqrt{5} - \sqrt{\frac{20}{64}}
+= \sqrt{25.3125}
+= \py{ (11.25**0.5) + (5**0.5) - ((20/64)**0.5) }
+\]
+
+% -------------------------------------------------------------------
+
+\subsection*{Somme de la première suite du nombre premier 2}
+
+\[
+\sqrt{5} - \left(\sqrt{\frac{20}{64}} + \sqrt{\frac{10}{128}}\right)
+= \frac{1}{\sqrt{0.512}}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\sqrt{5} - \left(\sqrt{\frac{20}{64}} + \sqrt{\frac{10}{128}}\right)
+= \frac{1}{\sqrt{0.512}}
+= \py{ (5**0.5) - ((20/64)**0.5 + (10/128)**0.5) }
+\]
+
+% -------------------------------------------------------------------
+
+\subsection*{Somme de la deuxième suite du nombre premier 2}
+
+\[
+\sqrt{25.3125} - \sqrt{5120}
+= -\sqrt{4425.3125}.
+\]
+
+\subsubsection*{Validation PythonTeX}
+
+\[
+\sqrt{25.3125} - \sqrt{5120}
+= -\sqrt{4425.3125}
+= \py{ (25.3125**0.5) - (5120**0.5) }
+\]
+% --- Bloc explicatif 2 ---
+Les nombres premiers 2, 3, 5 sont les trois premiers nombres premiers occupant les positions 1, 2, 3. Ils sont tous trois une exception dans les nombres premiers positifs, puisqu’ils sont un reste pour 2 et 3.
+
+Pour illustrer de manière plus générale la définition du Digamma, un retour sur la granulométrie est nécessaire. Lorsqu’une analyse granulométrique doit être effectuée, tout commence par le prélèvement d’un échantillon dans un monticule de sol. Comme l’expérience de pensée l’explique, pour répondre à l’énigme de Bernhard Riemann, l’auteur illustre de manière créative et originale le fait que sur chaque granulat, il faut considérer qu’un nombre est inscrit, et que le monticule de sol représente l’infini.
+
+L’échantillon en nombre, pour ce qui est de l’analyse numérique métrique, correspond à 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Ces dix caractères peuvent à eux seuls former tous les nombres de zéro à l’infini, ce qui est la raison de ce choix.
+
+Pour déterminer le Digamma, il est important d’inclure cette notion d’arithmétique :
+\[
+\frac{1}{8.1} = 0.1234567\_901 \quad \rightarrow \quad \text{Il manque le 8.}
+\]
+
+« Dans le système de numération grecque, le Zêta vaut 7, mais occupe la sixième position. Cela est dû à l’ancienne existence du Digamma, situé entre l’Epsilon et le Zêta. »
+
+Définition tirée du web, de l’encyclopédie libre Wikipédia.
+Il est plus simple, pour démontrer comment il faut appliquer les règles permettant de déterminer le Digamma pour chaque suite, de se concentrer sur l’intervalle des nombres premiers $29$, $31$, $37$ et $41$. En effet, sur cet intervalle, le Digamma — qui, pour les autres nombres premiers, nécessite une soustraction à partir de la somme de la deuxième suite en retirant ainsi la valeur du nombre premier dans l’équation — semble suivre une forme de récurrence logique entre eux.
+
+Les autres nombres premiers, entre eux et en comparaison avec l’intervalle $29$, $31$, $37$ et $41$, présentent un rapport chaotique comme seule évidence. Nous verrons, dans la suite des tableaux qui seront présentés à la suite de cette introduction au concept du Digamma, en quoi consiste cette logique interne propre à l’intervalle des nombres premiers $29$, $31$, $37$ et $41$.
+\\[6pt]
+
+\textbf{Tableau des valeurs de l’intervalle premier qui forme les différentes valeurs de cet intervalle :}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|p{11cm}|}
+\hline
+\textbf{Nombre premier} & \textbf{Valeur Digamma} \\
+\hline
+29 & $-\sqrt{81920} = -\sqrt{81920}$ \\
+\hline
+31 & $+5\sqrt{81920} = 204800$ \\
+\hline
+37 & $+9\sqrt{81920} + 5\sqrt{184320} = \sqrt{22302720}$ \\
+\hline
+41 & $+13\sqrt{81920} + 9\sqrt{184320} + 5\sqrt{737280} = \sqrt{141086720}$ \\
+\hline
+\end{tabular}
+\caption{Valeurs du Digamma pour les nombres premiers 29, 31, 37 et 41}
+\end{table}
+\newpage
+\textbf{Tableau de la somme de la 1\textsuperscript{ère} et 2\textsuperscript{ième} suite de (29), 10\textsuperscript{ième} nombre premier :}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\left((1^2)^2 + (2^1)^2\right)^{1/2}$ &
+ & $\left((1^2)^2 + (2^1)^1\right)^{1/2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\left((2^1)^2 + (2^2)^2\right)^{1/2}$ &
+ & $\left((2^1)^2 + (2^2)^2\right)^{1/2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\left((2^2)^2 + (2^3)^2\right)^{1/2}$ &
+ & $\left((2^2)^2 + (2^3)^2\right)^{1/2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\left((2^3)^2 + (2^4)^2\right)^{1/2}$ &
+ & $\left((2^3)^2 + (2^4)^2\right)^{1/2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\left((2^4)^2 + (2^5)^2\right)^{1/2}$ &
+ & $\left((2^4)^2 + (2^5)^2\right)^{1/2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\left((2^5)^2 + (2^6)^2\right)^{1/2}$ &
+ & $\left((2^6)^2 + (2^7)^2\right)^{1/2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\left((2^6)^2 + (2^7)^2\right)^{1/2}$ &
+substitution &
+$\left((2^7)^2 + (2^8)^2\right)^{1/2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\left((2^7)^2 + (2^8)^2\right)^{1/2}$ &
+ & $\left((2^8)^2 + (2^9)^2\right)^{1/2}$ \\
+\hline
+ & $\times(2 - 1/2)$ &
+$\sin 26.56505118$ &
+$\times(2 - 1/2)$ \\
+\hline
+9\textsuperscript{ième} &
+$\left((2^8 - 2^6)^2 + (2^9 - 2^7)^2\right)^{1/2}$ &
+ & $\left((2^9 - 2^7)^2 + (2^{10} - 2^8)^2\right)^{1/2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\left((2^9 - 2^7)^2 + (2^{10} - 2^8)^2\right)^{1/2}$ &
+ & $\left((2^{10} - 2^8)^2 + (2^{11} - 2^9)^2\right)^{1/2}$ \\
+\hline
+\textbf{Somme =} &
+$\sqrt{3452805}$ &
+ & $\sqrt{13300805}$ \\
+\hline
+\end{tabular}
+\end{table}
+\subsection*{Vérification des sommes pour le nombre premier 29}
+
+% --- 1ère suite ---
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{10}\right) - \sqrt{5}
+= \sqrt{3452805}
+= \py{ ((13.203125**0.5)/2 * 2**10) - (5**0.5) }
+\]
+
+% --- 2ième suite ---
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{10}\right) - \sqrt{5445}
+= \sqrt{13300805}
+= \py{ ((52.8125**0.5)/2 * 2**10) - (5445**0.5) }
+\]
+
+% --- Digamma pour 29 ---
+\[
+\text{Digamma}(29) = -\sqrt{81920}
+\]
+
+% --- Somme 1ère suite - Digamma ---
+\[
+\sqrt{3452805} - \left(-\sqrt{81920}\right)
+= \sqrt{2471045}
+= \py{ (3452805**0.5) - ( - (81920**0.5) ) }
+\]
+
+% --- Vérification alternative du Digamma ---
+\[
+\left(\frac{\sqrt{13300805}}{\sqrt{5120}} - 29\right)\times \sqrt{5120}
+= \sqrt{2471045}
+= \py{ ((13300805**0.5)/(5120**0.5) - 29) * (5120**0.5) }
+\]
+
+% --- Vérification du 10ième nombre premier ---
+\[
+\frac{\sqrt{13300805} - \sqrt{2471045}}{\sqrt{5120}}
+= 29
+= \py{ ((13300805**0.5) - (2471045**0.5)) / (5120**0.5) }
+\]
+\textbf{Tableau de la somme de la 1\textsuperscript{ère} et 2\textsuperscript{ième} suite (31), 11\textsuperscript{ième} nombre premier :}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\left((1^2)^2 + (2^1)^2\right)^{1/2}$ &
+ & $\left((1^2)^2 + (2^1)^2\right)^{1/2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\left((2^1)^2 + (2^2)^2\right)^{1/2}$ &
+ & $\left((2^1)^2 + (2^2)^2\right)^{1/2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\left((2^2)^2 + (2^3)^2\right)^{1/2}$ &
+ & $\left((2^2)^2 + (2^3)^2\right)^{1/2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\left((2^3)^2 + (2^4)^2\right)^{1/2}$ &
+ & $\left((2^3)^2 + (2^4)^2\right)^{1/2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\left((2^4)^2 + (2^5)^2\right)^{1/2}$ &
+ & $\left((2^4)^2 + (2^5)^2\right)^{1/2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\left((2^5)^2 + (2^6)^2\right)^{1/2}$ &
+ & $\left((2^6)^2 + (2^7)^2\right)^{1/2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\left((2^6)^2 + (2^7)^2\right)^{1/2}$ &
+ & $\left((2^7)^2 + (2^8)^2\right)^{1/2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\left((2^7)^2 + (2^8)^2\right)^{1/2}$ &
+ & $\left((2^8)^2 + (2^9)^2\right)^{1/2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\left((2^8)^2 + (2^9)^2\right)^{1/2}$ &
+ & $\left((2^{10})^2 + (2^8)^2\right)^{1/2}$ \\
+\hline
+ & $\times(2 - 1/2)$ &
+ & $\times(2 - 1/2)$ \\
+\hline
+10\textsuperscript{ième} &
+$\left((2^9 - 2^7)^2 + (2^{10} - 2^8)^2\right)^{1/2}$ &
+ & $\left((2^{10} - 2^8)^2 + (2^{11} - 2^9)^2\right)^{1/2}$ \\
+\hline
+11\textsuperscript{ième} &
+$\left((2^{10} - 2^8)^2 + (2^{11} - 2^9)^2\right)^{1/2}$ &
+ & $\left((2^{11} - 2^9)^2 + (2^{12} - 2^{10})^2\right)^{1/2}$ \\
+\hline
+\textbf{Somme =} &
+$\sqrt{13827845}$ &
+ & $\sqrt{54285125}$ \\
+\hline
+\end{tabular}
+\end{table}
+\newpage
+\subsection*{Vérification}
+
+% --- 1ère suite ---
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{11}\right) - \sqrt{5}
+= \sqrt{13827845}
+= \py{ ((13.203125**0.5)/2 * 2**11) - (5**0.5) }
+\]
+
+% --- 2ième suite ---
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{11}\right) - \sqrt{5445}
+= \sqrt{54285125}
+= \py{ ((52.8125**0.5)/2 * 2**11) - (5445**0.5) }
+\]
+
+% --- Digamma (31) ---
+\[
+\text{Digamma}(31) = +5\sqrt{81920}
+\]
+
+% --- Somme 1ère suite + Digamma ---
+\[
+\sqrt{13827845} + 5\sqrt{81920}
+= \sqrt{26519045}
+= \py{ (13827845**0.5) + 5*(81920**0.5) }
+\]
+
+% --- Vérification alternative du Digamma ---
+\[
+\left(\frac{\sqrt{54285125}}{\sqrt{5120}} - 31\right)\times \sqrt{5120}
+= \sqrt{26519045}
+= \py{ ((54285125**0.5)/(5120**0.5) - 31) * (5120**0.5) }
+\]
+
+% --- Vérification du 11ième nombre premier ---
+\[
+\frac{\sqrt{54285125} - \sqrt{26519045}}{\sqrt{5120}}
+= 31
+= \py{ ((54285125**0.5) - (26519045**0.5)) / (5120**0.5) }
+\]
+\newpage
+\textbf{Somme de la 1\textsuperscript{ère} et de la 2\textsuperscript{ième} suite (37), 12\textsuperscript{ième} nombre premier.}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\left((1^2)^2 + (2^1)^2\right)^{1/2}$ &
+ & $\left((1^2)^2 + (2^1)^2\right)^{1/2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\left((2^1)^2 + (2^2)^2\right)^{1/2}$ &
+ & $\left((2^1)^2 + (2^2)^2\right)^{1/2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\left((2^2)^2 + (2^3)^2\right)^{1/2}$ &
+ & $\left((2^2)^2 + (2^3)^2\right)^{1/2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\left((2^3)^2 + (2^4)^2\right)^{1/2}$ &
+ & $\left((2^3)^2 + (2^4)^2\right)^{1/2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\left((2^4)^2 + (2^5)^2\right)^{1/2}$ &
+ & $\left((2^4)^2 + (2^5)^2\right)^{1/2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\left((2^5)^2 + (2^6)^2\right)^{1/2}$ &
+ & $\left((2^6)^2 + (2^7)^2\right)^{1/2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\left((2^6)^2 + (2^7)^2\right)^{1/2}$ &
+ & $\left((2^7)^2 + (2^8)^2\right)^{1/2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\left((2^7)^2 + (2^8)^2\right)^{1/2}$ &
+ & $\left((2^8)^2 + (2^9)^2\right)^{1/2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\left((2^8)^2 + (2^9)^2\right)^{1/2}$ &
+ & $\left((2^9)^2 + (2^{10})^2\right)^{1/2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\left((2^9)^2 + (2^{10})^2\right)^{1/2}$ &
+ & $\left((2^{10})^2 + (2^{11})^2\right)^{1/2}$ \\
+\hline
+11\textsuperscript{ième} &
+$\left((2^{10} - 2^8)^2 + (2^{11} - 2^9)^2\right)^{1/2}$ &
+ & $\left((2^{11} - 2^9)^2 + (2^{12} - 2^{10})^2\right)^{1/2}$ \\
+\hline
+12\textsuperscript{ième} &
+$\left((2^{11} - 2^9)^2 + (2^{12} - 2^{10})^2\right)^{1/2}$ &
+ & $\left((2^{12} - 2^{10})^2 + (2^{13} - 2^{11})^2\right)^{1/2}$ \\
+\hline
+\textbf{Somme =} &
+$\sqrt{55344645}$ &
+ & $\sqrt{219320645}$ \\
+\hline
+\end{tabular}
+\end{table}
+\subsection*{Vérification}
+
+% --- 1ère suite ---
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{12}\right) - \sqrt{5}
+= \sqrt{55344645}
+= \py{ ((13.203125**0.5)/2 * 2**12) - (5**0.5) }
+\]
+
+% --- 2ième suite ---
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{12}\right) - \sqrt{5445}
+= \sqrt{219320645}
+= \py{ ((52.8125**0.5)/2 * 2**12) - (5445**0.5) }
+\]
+
+% --- Digamma (37) ---
+\[
+\text{Digamma}(37) = 9\sqrt{81920} + 5\sqrt{184320}
+= \sqrt{22302720}
+= \py{ 9*(81920**0.5) + 5*(184320**0.5) }
+\]
+
+% --- Digamma calculé ---
+\[
+\sqrt{55344645} + \sqrt{22302720}
+= \sqrt{147913605}
+= \py{ (55344645**0.5) + (22302720**0.5) }
+\]
+
+% --- Vérification alternative du Digamma ---
+\[
+\left(\frac{\sqrt{219320645}}{\sqrt{5120}} - 37\right)\times \sqrt{5120}
+= \sqrt{147913605}
+= \py{ ((219320645**0.5)/(5120**0.5) - 37) * (5120**0.5) }
+\]
+
+% --- Vérification du 12ième nombre premier ---
+\[
+\frac{\sqrt{219320645} - \sqrt{147913605}}{\sqrt{5120}}
+= 37
+= \py{ ((219320645**0.5) - (147913605**0.5)) / (5120**0.5) }
+\]
+\textbf{Somme de la 1\textsuperscript{ère} et de la 2\textsuperscript{ième} suite (41), 13\textsuperscript{ième} nombre premier.}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\left((1^1)^2 + (2^1)^2\right)^{1/2}$ &
+ & $\left((1^1)^2 + (2^1)^2\right)^{1/2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\left((2^1)^2 + (2^2)^2\right)^{1/2}$ &
+ & $\left((2^1)^2 + (2^2)^2\right)^{1/2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\left((2^2)^2 + (2^3)^2\right)^{1/2}$ &
+ & $\left((2^2)^2 + (2^3)^2\right)^{1/2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\left((2^3)^2 + (2^4)^2\right)^{1/2}$ &
+ & $\left((2^3)^2 + (2^4)^2\right)^{1/2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\left((2^4)^2 + (2^5)^2\right)^{1/2}$ &
+ & $\left((2^4)^2 + (2^5)^2\right)^{1/2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\left((2^5)^2 + (2^6)^2\right)^{1/2}$ &
+ & $\left((2^5)^2 + (2^6)^2\right)^{1/2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\left((2^6)^2 + (2^7)^2\right)^{1/2}$ &
+ & $\left((2^7)^2 + (2^8)^2\right)^{1/2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\left((2^7)^2 + (2^8)^2\right)^{1/2}$ &
+ & $\left((2^8)^2 + (2^9)^2\right)^{1/2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\left((2^8)^2 + (2^9)^2\right)^{1/2}$ &
+ & $\left((2^9)^2 + (2^{10})^2\right)^{1/2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\left((2^9)^2 + (2^{10})^2\right)^{1/2}$ &
+ & $\left((2^{10})^2 + (2^{11})^2\right)^{1/2}$ \\
+\hline
+11\textsuperscript{ième} &
+$\left((2^{10})^2 + (2^{11})^2\right)^{1/2}$ &
+ & $\left((2^{11})^2 + (2^{12})^2\right)^{1/2}$ \\
+\hline
+12\textsuperscript{ième} &
+$\left((2^{11} - 2^9)^2 + (2^{12} - 2^{10})^2\right)^{1/2}$ &
+ & $\left((2^{12} - 2^{10})^2 + (2^{13} - 2^9)^2\right)^{1/2}$ \\
+\hline
+13\textsuperscript{ième} &
+$\left((2^{12} - 2^{10})^2 + (2^{13} - 2^{11})^2\right)^{1/2}$ &
+ & $\left((2^{13} - 2^{11})^2 + (2^{14} - 2^{12})^2\right)^{1/2}$ \\
+\hline
+\textbf{Somme =} &
+$\sqrt{221445125}$ &
+ & $\sqrt{881659205}$ \\
+\hline
+\end{tabular}
+\end{table}
+\newpage
+\subsection*{Vérification}
+
+% --- 1ère suite ---
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^{13}\right) - \sqrt{5}
+= \sqrt{221445125}
+= \py{ ((13.203125**0.5)/2 * 2**13) - (5**0.5) }
+\]
+
+% --- 2ième suite ---
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^{13}\right) - \sqrt{5445}
+= \sqrt{881659205}
+= \py{ ((52.8125**0.5)/2 * 2**13) - (5445**0.5) }
+\]
+
+% --- Digamma (41) ---
+\[
+13\sqrt{81920} + 9\sqrt{184320} + 5\sqrt{737280}
+= \sqrt{141086720}
+= \py{ 13*(81920**0.5) + 9*(184320**0.5) + 5*(737280**0.5) }
+\]
+
+% --- Digamma calculé ---
+\[
+\sqrt{221445125} + \sqrt{141086720}
+= \sqrt{716045445}
+= \py{ (221445125**0.5) + (141086720**0.5) }
+\]
+
+% --- Vérification alternative du Digamma ---
+\[
+\left(\frac{\sqrt{881659205}}{\sqrt{5120}} - 41\right)\times \sqrt{5120}
+= \sqrt{716045445}
+= \py{ ((881659205**0.5)/(5120**0.5) - 41) * (5120**0.5) }
+\]
+
+% --- Vérification du 13ième nombre premier ---
+\[
+\frac{\sqrt{881659205} - \sqrt{716045445}}{\sqrt{5120}}
+= 41
+= \py{ ((881659205**0.5) - (716045445**0.5)) / (5120**0.5) }
+\]
+\noindent
+\textbf{Comment définir les deux équations tant pour les nombres premiers positifs que négatifs ?}
+
+\medskip
+
+Procédons à la démonstration à l’aide des suites révélées dans les derniers exemples. 
+Pour définir les équations, il suffit d’employer deux nombres premiers successifs. 
+Dans cet exemple, les nombres premiers seront (29 et 31), soit le 10\textsuperscript{ième} 
+et le 11\textsuperscript{ième} nombre premier. 
+
+Cette équation a été conçue en s’inspirant d’équations associées à la détermination 
+du n\textsuperscript{ième} terme dans une suite géométrique.
+
+\medskip
+
+\textbf{Tableau de la somme de la première suite et de la deuxième suite de (29 et 31) :}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Nombre premier} & \textbf{29} & \textbf{31} \\
+\hline
+1\textsuperscript{ère} suite & $\sqrt{3452805}$ & $\sqrt{13827845}$ \\
+\hline
+2\textsuperscript{ième} suite & $\sqrt{13300805}$ & $\sqrt{54285125}$ \\
+\hline
+\end{tabular}
+\end{table}
+\noindent
+\textbf{Analyse des écarts entre les suites}
+
+\medskip
+
+\[
+\frac{\text{Somme 1\textsuperscript{ère} suite}(31) - \text{Somme 2\textsuperscript{ième} suite}(29)}{2^9}
+= \text{Écart entre la 1\textsuperscript{ère} et la 2\textsuperscript{ième} position pour la 1\textsuperscript{ère} suite}.
+\]
+
+\[
+\frac{\sqrt{13827845} - \sqrt{3452805}}{2^9}
+= \sqrt{13.203125}.
+\]
+
+Numérateur de la première suite pour les nombres premiers positifs, et simple coefficient par le produit de \(2^n\) pour les nombres premiers négatifs.
+
+\medskip
+
+\[
+\frac{\text{Somme 2\textsuperscript{ième} suite}(31) - \text{Somme 2\textsuperscript{ième} suite}(29)}{2^9}
+= \text{Écart entre la 1\textsuperscript{ère} et la 2\textsuperscript{ième} position pour la 2\textsuperscript{ième} suite}.
+\]
+
+\[
+\frac{\sqrt{54285125} - \sqrt{13300805}}{2^9}
+= \sqrt{52.8125}.
+\]
+
+Numérateur de la deuxième suite pour les nombres premiers positifs, et simple coefficient par le produit de \(2^n\) pour les nombres premiers négatifs.
+
+\medskip
+
+\textbf{Équations générales pour les nombres premiers positifs et négatifs}
+
+\medskip
+
+\textbf{1\textsuperscript{ère} suite, nombres premiers positifs :}
+\[
+\left(\frac{\sqrt{13.203125}}{2} \times 2^n\right) - \sqrt{5}
+\]
+
+où \(n\) est la quantité de racines carrées dans la suite, correspondant à la position du nombre premier :
+2 est le 1\textsuperscript{er}, 3 le 2\textsuperscript{ième}, 5 le 3\textsuperscript{ième}, etc.
+
+\[
+n \in \mathbb{Z}^{+}.
+\]
+
+\[
+\sqrt{5} = (1^2 + 2^2)^{1/2}.
+\]
+
+\(\sqrt{5} \times 1\) : le coefficient \(1\) provient de la somme fractionnaire de la méthode de Philippôt.
+
+\medskip
+
+\textbf{1\textsuperscript{ère} suite, nombres premiers négatifs :}
+\[
+\left(\sqrt{13.203125} \times 2^{-n}\right) - \sqrt{5},
+\qquad n \in \mathbb{Z}^{-}.
+\]
+
+\medskip
+
+\textbf{2\textsuperscript{ième} suite, nombres premiers positifs :}
+\[
+\left(\frac{\sqrt{52.8125}}{2} \times 2^n\right) - \sqrt{5445},
+\qquad n \in \mathbb{Z}^{+}.
+\]
+
+\[
+\sqrt{5445} : \quad \frac{\sqrt{5120}}{\sqrt{5}} = 32,\quad (32+1)\sqrt{5} = \sqrt{5445}.
+\]
+
+\medskip
+
+\textbf{2\textsuperscript{ième} suite, nombres premiers négatifs :}
+\[
+\left(\sqrt{52.8125} \times 2^{-n}\right) - \sqrt{5445},
+\qquad n \in \mathbb{Z}^{-}.
+\]
+
+\bigskip
+
+\textbf{Méthodes pour déterminer la quantité de nombres entre deux nombres premiers}
+
+Deux approches sont possibles :
+
+\begin{itemize}
+    \item une méthode simple par soustraction ;
+    \item une méthode spectrale fondée sur les suites et le Digamma.
+\end{itemize}
+
+\medskip
+
+\textbf{Méthode simple généralisée}
+
+Il suffit de soustraire le nombre précédent le nombre premier.
+
+\begin{itemize}
+    \item Entre 19 et 43 : \(42 - 19 = 23\).
+    \item Entre \(-11\) et \(-29\) : \(-12 - (-29) = 17\).
+    \item Entre \(-11\) et 17 : \(16 - (-11) = 27\).
+\end{itemize}
+
+\medskip
+
+\textbf{Méthode spectrale généralisée}
+
+Cette méthode repose sur les équations spectrales associées à chaque nombre premier.
+
+\medskip
+
+\textbf{1. Somme de la première suite}
+
+\[
+\left(\frac{\sqrt{A}}{2} \times 2^n\right) - \sqrt{B},
+\]
+
+où \(A = 13.203125\), \(B = 5\).
+
+Exemples :
+
+\[
+23 : \sqrt{\frac{13.203125}{2} \times 2^9} - \sqrt{5} = \sqrt{861125}.
+\]
+
+\[
+-7 : \sqrt{13.203125 \times 2^{-4}} - \sqrt{5} = -\sqrt{4.035949707}.
+\]
+
+\medskip
+
+\textbf{2. Somme de la deuxième suite et Digamma}
+
+\[
+\sqrt{\frac{C}{2} \times 2^n} - \sqrt{D},
+\]
+
+où \(C = 52.8125\), \(D = 5445\).
+
+Exemples :
+
+\[
+43 : \sqrt{\frac{52.8125}{2} \times 2^{14}} - \sqrt{5445} = \sqrt{3535406405}.
+\]
+
+\[
+-31 : \sqrt{52.8125 \times 2^{-11}} - \sqrt{5445} = -\sqrt{5444.476331}.
+\]
+
+\medskip
+
+\textbf{Formule du Digamma}
+
+\[
+\left(\frac{\sqrt{\text{somme 2\textsuperscript{ième} suite}}}{\sqrt{E}} - N\right)\times \sqrt{E},
+\qquad E = 5120.
+\]
+
+Exemples :
+
+\[
+\text{Digamma}(43) = \sqrt{3178981125}.
+\]
+
+\[
+\text{Digamma}(19) = -\sqrt{253125}.
+\]
+
+\medskip
+
+\textbf{Calcul de la quantité de nombres entre deux nombres premiers}
+
+\[
+\text{Étape 1 : } 
+\sqrt{\text{somme 1\textsuperscript{ère} suite}} -
+\left(\sqrt{\text{somme 2\textsuperscript{ième} suite}} -
+\sqrt{\text{Digamma du plus grand premier}}\right).
+\]
+
+\[
+\text{Étape 2 : }
+\frac{\text{résultat étape 1} - \sqrt{\text{Digamma du plus petit premier}}}{\sqrt{5120}}.
+\]
+
+Exemples :
+
+\[
+19 \text{ et } 43 : -\sqrt{4617605} \quad\Rightarrow\quad -23.
+\]
+
+\[
+-11 \text{ et } -29 : \sqrt{616016.1401} \quad\Rightarrow\quad -17.
+\]
+
+\[
+-11 \text{ et } 17 : -\sqrt{1484571.536} \quad\Rightarrow\quad -27.
+\]
+
+\[
+-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16.
+\]
+Comme nous pouvons l’observer, il y a \(-27\) nombres entre \(-11\) et \(17\). 
+Cette méthode a la particularité d’inclure le zéro. Cela est démontrable par déduction : 
+lorsque les deux nombres sont négatifs ou positifs, il n’y a aucun nombre ajouté à la 
+quantité de nombres entre les deux premiers, puisque l’intervalle ne passe pas par zéro. 
+Lorsque l’intervalle passe par zéro et inclut un nombre premier positif et un négatif, 
+il y aurait un surplus de \(1\), mais la valeur correcte demeure bien \(0\).
+
+Dans la section suivante, nous observerons la méthode utilisée par les mathématiques 
+conventionnelles, non issues de la géométrie du spectre des nombres premiers. Cette 
+méthode semble fonctionner en partie. Le problème que j’observe apparaît lorsque, à 
+l’aide de la formule \(q - p - 1\), on tente de vérifier la quantité strictement contenue 
+entre deux nombres premiers, l’un positif et l’autre négatif. Par exemple, dans notre 
+exemple précédent entre \(-11\) et \(17\), le résultat obtenu est \(-27\), comme avec ma 
+méthode. Selon certaines conventions, zéro n’est pas considéré comme un nombre. Il 
+faudrait alors utiliser \(q - p - 2\) pour obtenir la bonne réponse.
+
+Lorsque la question se complexifie et que l’on cherche la quantité de nombres strictement 
+compris entre deux nombres premiers situés sur deux intervalles distincts — par exemple 
+\(-11\) et \(17\), puis \(7\) et \(-3\) — la formule conventionnelle devrait alors devenir 
+\(q - p - 3\). 
+
+Lorsque je cherche moi-même à résoudre une question mathématique impliquant la 
+construction d’une formule, il m’arrive d’ajouter un coefficient, par exemple \(\times 2\), 
+sans autre justification que la nécessité d’obtenir la bonne réponse. Mais dans la formule 
+proposée par les mathématiques conventionnelles, toutes les valeurs de la forme 
+\(q - p - n\), où \(n\) correspond à la quantité d’intervalles contenant un nombre premier 
+positif et un négatif, demeurent fragiles.
+
+La méthode proposée par l’auteur, Philippe Thomas Savard, n’implique jamais d’ajouter 
+\(1\) ou \(n\) dans aucun de ses exemples, qu’il s’agisse de deux nombres premiers positifs 
+ou de deux nombres premiers négatifs. Il suffit de considérer zéro comme une donnée, et 
+la réponse obtenue ne nécessite aucun ajustement, même lorsque la question implique 
+plusieurs intervalles négatifs et positifs asymétriques passant par zéro.
+
+Il est à noter que, pour la réponse finale à l’énigme de Bernhard Riemann, ce facteur — 
+que l’auteur qualifie de fragile — possède une influence non négligeable. Sans répondre 
+immédiatement à cette énigme, puisque l’essentiel de l’explication sera présenté dans les 
+pages suivantes, il apparaît probable que la réponse ne puisse être que négative si l’on 
+considère ce point seul. Je vous invite à poursuivre votre lecture pour découvrir la 
+réponse finale.
+
+L’auteur est convaincu que la question de l’énigme de Bernhard Riemann constitue en 
+soi une forme d’épreuve conceptuelle. Autrement dit, lorsqu’un étudiant se présente pour 
+intégrer une formation avancée en mathématiques, cette énigme peut servir à évaluer sa 
+capacité à raisonner au-delà des méthodes conventionnelles. Selon cette perspective, 
+l’énigme pourrait fonctionner comme un filtre intellectuel, révélant la capacité à remettre 
+en question des postulats établis.
+
+\medskip
+
+\textbf{Doctus cum Libro} : se dit de ceux qui, incapables de penser par eux-mêmes, 
+étalent une science d’emprunt et puisent leurs idées dans les ouvrages des autres. 
+(Définition du dictionnaire Pierre Larousse, pages roses.)
+\noindent
+\textbf{Méthode mathématique classique généralisée}
+
+\medskip
+
+Dans le monde mathématique, la manière classique de déterminer la quantité de nombres 
+entre deux nombres premiers consiste à utiliser la formule suivante :
+
+\[
+q - p - 1
+\]
+
+où :
+\begin{itemize}
+    \item \(q\) est le plus grand nombre premier ;
+    \item \(p\) est le plus petit nombre premier.
+\end{itemize}
+
+Cette formule donne le nombre d’entiers strictement compris entre les deux nombres premiers.
+
+\medskip
+
+\textbf{Exemples :}
+\[
+\text{Entre } 19 \text{ et } 43 :\quad 43 - 19 - 1 = 23
+\]
+\[
+\text{Entre } -29 \text{ et } -11 :\quad -11 - (-29) - 1 = 17
+\]
+\[
+\text{Entre } -11 \text{ et } 17 :\quad 17 - (-11) - 1 = 27
+\]
+
+Cette méthode est directe, universelle et utilisée dans les démonstrations formelles pour 
+quantifier les intervalles entre deux nombres premiers.
+
+\medskip
+
+La géométrie du spectre des nombres premiers traite d’une possibilité selon laquelle un 
+code caché dans l’ensemble des nombres entiers permettrait d’établir qu’entre tous les 
+nombres premiers, il peut exister une distance plus petite que la norme de \(1\) entre deux 
+entiers consécutifs. Cette section est déterminante quant à la question du rapport minimal 
+entre deux entiers, qu’il s’agisse de nombres premiers isolés, de groupes symétriques, 
+asymétriques, ordonnés ou chaotiques.
+
+Différents rapports ont été vérifiés : \(1/2\), \(1/12\), \(1/20\), \(1/50\) et \(1/100\). 
+Dans 100\% des tentatives, un nombre premier a été dévoilé. De plus, pour 14 rapports 
+vérifiés, 11 nombres premiers consécutifs ont été trouvés pour chacun des rapports, en plus 
+du rapport \(1/2\), où les nombres premiers ont été vérifiés de \(-47\) à \(97\), soit environ 
+200 nombres premiers différents, tous rapports confondus.
+
+Tous les rapports inclus, la méthode utilisée est la même que celle démontrée dans la 
+section précédente (voir également les 14 tableaux de l’annexe). Dans tous les cas, elle a 
+permis de dévoiler un nombre premier pour chacun des exemples vérifiés.
+
+\medskip
+
+Pour l’observation asymétrique, il faut considérer l’ordinal des infinis et le cardinal des 
+infinis. Lorsque l’on compare un nombre premier à deux autres dans l’ordre croissant de 
+leurs positions respectives — donc de manière asymétrique ordonnée — une particularité 
+apparaît : le rapport obtenu, \(-1/6\), diffère du rapport \(1/2\).
+
+Ce rapport atypique, par rapport à la valeur typique \(1/2\), est pour l’auteur lié à la 
+proposition \(1 + \omega \neq \omega + 1\), soit l’ordinal des infinis. Cela ne constitue pas 
+une démonstration que l’hypothèse serait invalide, mais découle du fait que, dans ce 
+document, tous les nombres premiers sont considérés comme des infinis.
+
+L’idée que chaque nombre premier soit un infini permet, selon l’auteur, d’expliquer 
+pourquoi le rapport \(1/6\) apparaît lorsqu’on compare les nombres premiers dans l’ordre 
+de leurs positions de manière asymétrique. En revanche, lorsque l’on compare les nombres 
+premiers de manière asymétrique chaotique — ce qui correspond davantage à l’ordre 
+naturel des nombres premiers — la valeur obtenue est très proche de \(1/2\), soit 
+\(0.5 + \text{reste}\).
+
+La section qui suit présente l’équation généralisée et calculable démontrant ce qui vient 
+d’être avancé.
+
+\medskip
+
+\textbf{Note importante :} Les valeurs utilisées dans cette section sont choisies de manière 
+aléatoire, uniquement parce qu’elles sont premières et dans l’ordre croissant, pour la 
+commodité de l’exemple.
+\newpage
+\textbf{Tableau de la somme de la 1\textsuperscript{ère} et de la 2\textsuperscript{ième} suite pour divers nombres premiers dans l’ordre croissant successif}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Nombre premier} & \textbf{2} & \textbf{3} & \textbf{5} & \textbf{7} & \textbf{11} \\
+\hline
+\textbf{Somme 1\textsuperscript{ère} suite} &
+$\frac{1}{\sqrt{0.512}}$ &
+$\sqrt{25.3125}$ &
+$\sqrt{151.25}$ &
+$\sqrt{720}$ &
+$\sqrt{3125}$ \\
+\hline
+\textbf{Somme 2\textsuperscript{ième} suite} &
+$-\sqrt{4425.3125}$ &
+$-\sqrt{3511.25}$ &
+$-\sqrt{2000}$ &
+$-\sqrt{245}$ &
+$\sqrt{1805}$ \\
+\hline
+\end{tabular}
+\end{table}
+\textbf{Tableau de divers nombres premiers, suites dans l’ordre croissant non successif}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Nombre premier} & \textbf{19} & \textbf{29} & \textbf{41} & \textbf{59} \\
+\hline
+\textbf{Somme 1\textsuperscript{ère} suite} &
+$\sqrt{214245}$ &
+$\sqrt{3452805}$ &
+$\sqrt{221445125}$ &
+$\sqrt{1.417621505\times 10^{10}}$ \\
+\hline
+\textbf{Somme 2\textsuperscript{ième} suite} &
+$\sqrt{733445}$ &
+$\sqrt{13300805}$ &
+$\sqrt{881659205}$ &
+$\sqrt{5.667185185\times 10^{10}}$ \\
+\hline
+\end{tabular}
+\end{table}
+\noindent
+\textbf{Équation formalisée démontrant que le rapport \( \tfrac{1}{2} \) est présent entre tous les nombres premiers de manière symétrique simple}
+\[
+\frac{
+\left( \frac{\sqrt{13.203125}}{2} 2^{n_1} - \sqrt{5} \right)
+-
+\left( \frac{\sqrt{13.203125}}{2} 2^{n_2} - \sqrt{5} \right)
+}{
+\left( \frac{\sqrt{52.8125}}{2} 2^{n_1} - \sqrt{5445} \right)
+-
+\left( \frac{\sqrt{52.8125}}{2} 2^{n_2} - \sqrt{5445} \right)
+}
+= \frac{1}{2}
+\]
+\begin{pycode}
+import sympy as sp
+
+A = sp.sqrt(13.203125)/2
+B = sp.sqrt(5)
+C = sp.sqrt(52.8125)/2
+D = sp.sqrt(5445)
+
+def ratio(n1, n2):
+    num = (A*2**n1 - B) - (A*2**n2 - B)
+    den = (C*2**n1 - D) - (C*2**n2 - D)
+    return sp.simplify(num/den)
+
+print("\\texttt{Validation du rapport = 1/2 pour tous les couples (n1, n2) strictement positifs :}")
+for n1 in range(1, 13):
+    for n2 in range(1, 13):
+        if n1 != n2:
+            r = ratio(n1, n2)
+            print(f"\\texttt{{n1={n1}, n2={n2} → ratio = {r}}}")
+\end{pycode}
+
+\textbf{De manière symétrique multiple :}
+\[
+\frac{
+\sum_{k=1}^{n^2} \left( \frac{\sqrt{13.203125}}{2}\, 2^{n_{1,k}} - \sqrt{5} \right)
+-
+\sum_{k=1}^{n^2} \left( \frac{\sqrt{13.203125}}{2}\, 2^{n_{2,k}} - \sqrt{5} \right)
+}{
+\sum_{k=1}^{n^2} \left( \frac{\sqrt{52.8125}}{2}\, 2^{n_{1,k}} - \sqrt{5445} \right)
+-
+\sum_{k=1}^{n^2} \left( \frac{\sqrt{52.8125}}{2}\, 2^{n_{2,k}} - \sqrt{5445} \right)
+}
+= \frac{1}{2}
+\]
+
+\begin{pycode}
+import sympy as sp
+import random
+
+A = sp.sqrt(13.203125)/2
+B = sp.sqrt(5)
+C = sp.sqrt(52.8125)/2
+D = sp.sqrt(5445)
+
+def ratio_for_n(n):
+    size = n*n
+    n1 = random.sample(range(1, 50), size)
+    n2 = random.sample(range(51, 100), size)
+    num = sum(A*2**p - B for p in n1) - sum(A*2**p - B for p in n2)
+    den = sum(C*2**p - D for p in n1) - sum(C*2**p - D for p in n2)
+    return sp.simplify(num/den)
+
+print("\\texttt{Validation du rapport = 1/2 pour des ensembles n×n :}")
+for n in range(2, 7):
+    print(f"\\texttt{{n = {n} → ratio = {ratio_for_n(n)}}}")
+\end{pycode}
+
+\textbf{De manière asymétrique ordonnée}
+\[
+\frac{
+\left( A 2^{n_{1}} - B \right)
+-
+\left[
+\left( A 2^{n_{2}} - B \right)
+-
+\left( A 2^{n_{3}} - B \right)
+\right]
+}{
+\left( C 2^{n_{1}} - D \right)
+-
+\left[
+\left( C 2^{n_{2}} - D \right)
+-
+\left( C 2^{n_{3}} - D \right)
+\right]
+}
+\neq \frac{1}{2}
+\]
+
+\begin{pycode}
+import sympy as sp
+
+A = sp.sqrt(13.203125)/2
+B = sp.sqrt(5)
+C = sp.sqrt(52.8125)/2
+D = sp.sqrt(5445)
+
+n1 = 2
+n2 = 3
+n3 = 5
+
+num = (A*2**n1 - B) - ((A*2**n2 - B) - (A*2**n3 - B))
+den = (C*2**n1 - D) - ((C*2**n2 - D) - (C*2**n3 - D))
+ratio = sp.simplify(num/den)
+
+print("\\texttt{Résultat de l'équation asymétrique ordonnée :}")
+print(f"\\texttt{{{ratio}}}")
+print("\\texttt{Conclusion : cette valeur n'est PAS égale à 1/2.}")
+\end{pycode}
+
+\subsection*{De manière symétrique chaotique}
+
+\[
+\frac{
+\left( A 2^{n_{1}} - B \right)
+-
+\left( A 2^{n_{2}} - B \right)
+-
+\left( A 2^{n_{3}} - B \right)
+}{
+\left( C 2^{n_{1}} - D \right)
+-
+\left( C 2^{n_{2}} - D \right)
+-
+\left( C 2^{n_{3}} - D \right)
+}
+\approx \frac{1}{2}
+\]
+
+\[
+\frac{
+\left( \frac{\sqrt{13.203125}}{2} 2^{n_{1}} - \sqrt{5} \right)
+-
+\left( \frac{\sqrt{13.203125}}{2} 2^{n_{2}} - \sqrt{5} \right)
+-
+\left( \frac{\sqrt{13.203125}}{2} 2^{n_{3}} - \sqrt{5} \right)
+}{
+\left( \frac{\sqrt{52.8125}}{2} 2^{n_{1}} - \sqrt{5445} \right)
+-
+\left( \frac{\sqrt{52.8125}}{2} 2^{n_{2}} - \sqrt{5445} \right)
+-
+\left( \frac{\sqrt{52.8125}}{2} 2^{n_{3}} - \sqrt{5445} \right)
+}
+\approx \frac{1}{2}
+\]
+
+\textit{
+Dans cette configuration asymétrique chaotique, les puissances $n_1, n_2, n_3$ ne suivent
+aucun ordre. Elles proviennent d'ensembles de nombres premiers désordonnés tels que
+$(7,19)$, $(3,23)$, $(41,29,17)$, etc.
+
+Ce désordre fait intervenir non pas l'ordinal des infinis, mais leur \textbf{cardinal}.
+Les puissances ne s'additionnent plus selon une progression ordonnée, mais selon une
+distribution chaotique. Le résultat du rapport n'est donc plus exactement $1/2$, mais
+}
+\[
+0.5 + \text{reste minimal}.
+\]
+\textit{
+Cette stabilité autour de $1/2$ montre que, même dans le chaos, la structure profonde
+des deux suites conserve une symétrie fondamentale. L'auteur interprète ce phénomène
+comme une manifestation du fait que les nombres premiers, pris sans ordre, expriment
+leur nature de valeurs sans position ordinale, mais avec un cardinal invariant.
+}
+
+\begin{pycode}
+import sympy as sp
+import random
+
+A = sp.sqrt(13.203125)/2
+B = sp.sqrt(5)
+C = sp.sqrt(52.8125)/2
+D = sp.sqrt(5445)
+
+def chaotic_ratio():
+    n_vals = random.sample(range(2, 40), 3)
+    n1, n2, n3 = n_vals
+
+    num = (A*2**n1 - B) - (A*2**n2 - B) - (A*2**n3 - B)
+    den = (C*2**n1 - D) - (C*2**n2 - D) - (C*2**n3 - D)
+
+    ratio = sp.N(num/den, 12)
+    return n1, n2, n3, ratio
+
+print("\\texttt{Validation de l'équation asymétrique chaotique (ensembles aléatoires) :}")
+
+for i in range(5):
+    n1, n2, n3, r = chaotic_ratio()
+    print(f"\\texttt{{Essai {i+1} : n1={n1}, n2={n2}, n3={n3} → ratio = {r}}}")
+\end{pycode}
+\textbf{Comparaison par paire et de manière symétrique :}
+
+\[
+\frac{(1/\sqrt{0.512}-\sqrt{720})-(\sqrt{3452805}-\sqrt{25.3125})}
+{(-\sqrt{4425.3125}-(-\sqrt{2000}))-(\sqrt{13300805}-(-\sqrt{3511.25}))}
+= \frac{1}{2}
+\]
+
+\[
+\frac{(\sqrt{25.3125}-\sqrt{151.25})-(\sqrt{3125}-1/\sqrt{0.512})}
+{(-\sqrt{3511.25}-(-\sqrt{245}))-(\sqrt{1805}-(-\sqrt{3511.25}))}
+= \frac{1}{2}
+\]
+
+\[
+\frac{(\sqrt{221445125}-\sqrt{214245})-(\sqrt{3125}-\sqrt{151.25})}
+{(\sqrt{881659205}-\sqrt{733445})-(\sqrt{1805}-(-\sqrt{2000}))}
+= \frac{1}{2}
+\]
+
+\[
+\frac{(1/\sqrt{0.512}-\sqrt{25.3125})-(\sqrt{151.25}-\sqrt{720})}
+{(-\sqrt{4425.3125}-(-\sqrt{3511.25})-(-\sqrt{2000}-\sqrt{245}))}
+= \frac{1}{2}
+\]
+\textbf{Comparaison par paire et de manière symétrique :}
+
+\[
+\frac{
+\left(\frac{1}{\sqrt{0.512}} - \sqrt{720}\right)
+-
+\left(\sqrt{3452805} - \sqrt{25.3125}\right)
+}{
+\left(-\sqrt{4425.3125} - \left(-\sqrt{2000}\right)\right)
+-
+\left(\sqrt{13300805} - \left(-\sqrt{3511.25}\right)\right)
+}
+= \frac{1}{2}
+\]
+
+\[
+\frac{
+\left(\sqrt{25.3125} - \sqrt{151.25}\right)
+-
+\left(\sqrt{3125} - \frac{1}{\sqrt{0.512}}\right)
+}{
+\left(-\sqrt{3511.25} - \left(-\sqrt{245}\right)\right)
+-
+\left(\sqrt{1805} - \left(-\sqrt{3511.25}\right)\right)
+}
+= \frac{1}{2}
+\]
+
+\[
+\frac{
+\left(\sqrt{221445125} - \sqrt{214245}\right)
+-
+\left(\sqrt{3125} - \sqrt{151.25}\right)
+}{
+\left(\sqrt{881659205} - \sqrt{733445}\right)
+-
+\left(\sqrt{1805} - \left(-\sqrt{2000}\right)\right)
+}
+= \frac{1}{2}
+\]
+
+\[
+\frac{
+\left(\frac{1}{\sqrt{0.512}} - \sqrt{25.3125}\right)
+-
+\left(\sqrt{151.25} - \sqrt{720}\right)
+}{
+\left(-\sqrt{4425.3125} - \left(-\sqrt{3511.25}\right)\right)
+-
+\left(-\sqrt{2000} - \left(-\sqrt{245}\right)\right)
+}
+= \frac{1}{2}
+\]
+
+\textbf{Par triplet symétrique :}
+
+\[
+\frac{
+\left(\frac{1}{\sqrt{0.512}} - \sqrt{221445125} - \sqrt{3452805}\right)
+-
+\left(\sqrt{720} - \sqrt{151.25} - \sqrt{214245}\right)
+}{
+\left(-\sqrt{4425.3125} - \sqrt{881659205} - \sqrt{13300805}\right)
+-
+\left(-\sqrt{245} - \left(-\sqrt{2000}\right) - \sqrt{733445}\right)
+}
+= \frac{1}{2}
+\]
+\textbf{De manière asymétrique chaotique :}
+
+\[
+\frac{\sqrt{221445125}-(\sqrt{214245}-\sqrt{1.417621505\times 10^{10}})}
+{\sqrt{881659205}-(\sqrt{733445}-\sqrt{5.667185185\times 10^{10}})}
+= \frac{1}{2} \quad \text{reste } 0.002692865
+\]
+
+\[
+\frac{1/\sqrt{0.512}-(\sqrt{25.3125}-\sqrt{151.25}-\sqrt{720})}
+{-\sqrt{4425.3125}-(-\sqrt{3511.25}-(-\sqrt{2000}-\sqrt{245}))}
+= \frac{1}{2} \quad \text{reste } 0.247933884
+\]
+\newpage
+\textbf{De manière asymétrique ordonnée :}
+
+\[
+\frac{1/\sqrt{0.512}-(\sqrt{25.3125}-\sqrt{151.25})}
+{-\sqrt{4425.3125}-(-\sqrt{3511.25}-(-\sqrt{2000}))}
+= -\frac{1}{6}
+\]
+
+\[
+\frac{(1/\sqrt{0.512}-\sqrt{25.3125})-(\sqrt{151.25}-\sqrt{720}-\sqrt{3125})}
+{(-\sqrt{4425.3125}-(-\sqrt{3511.25}))-(-\sqrt{2000}-\sqrt{245}-\sqrt{1805})}
+= 1.039130435
+\]
+
+\[
+\frac{(\sqrt{25.3125}-\sqrt{720})-(\sqrt{151.25}-1/\sqrt{0.512}-\sqrt{3125})}
+{(-\sqrt{3511.25}-\sqrt{245})-(-\sqrt{2000}-\sqrt{4425.3125}-\sqrt{1805})}
+= 1.012195122
+\]
+\begin{pycode}
+import sympy as sp
+
+# Racine carrée abrégée
+sqrt = sp.sqrt
+
+def check(expr, expected):
+    val = sp.N(expr, 12)
+    print(f"Valeur calculée : {val}")
+    print(f"Attendu : {expected}")
+    print(f"Différence : {sp.N(val - expected, 12)}\n")
+
+
+print("=== Comparaison par paire ===\n")
+
+expr1 = ((1/sqrt(0.512) - sqrt(720)) - (sqrt(3452805) - sqrt(25.3125))) / \
+        ((-sqrt(4425.3125) - (-sqrt(2000))) - (sqrt(13300805) - (-sqrt(3511.25))))
+check(expr1, sp.Rational(1, 2))
+
+expr2 = ((sqrt(25.3125) - sqrt(151.25)) - (sqrt(3125) - 1/sqrt(0.512))) / \
+        ((-sqrt(3511.25) - (-sqrt(245))) - (sqrt(1805) - (-sqrt(3511.25))))
+check(expr2, sp.Rational(1, 2))
+
+expr3 = ((sqrt(221445125) - sqrt(214245)) - (sqrt(3125) - sqrt(151.25))) / \
+        ((sqrt(881659205) - sqrt(733445)) - (sqrt(1805) - (-sqrt(2000))))
+check(expr3, sp.Rational(1, 2))
+
+expr4 = ((1/sqrt(0.512) - sqrt(25.3125)) - (sqrt(151.25) - sqrt(720))) / \
+        ((-sqrt(4425.3125) - (-sqrt(3511.25))) - (-sqrt(2000) - sqrt(245)))
+check(expr4, sp.Rational(1, 2))
+
+
+print("=== Triplet symétrique ===\n")
+
+expr5 = ((1/sqrt(0.512) - sqrt(221445125) - sqrt(3452805)) - (sqrt(720) - sqrt(151.25) - sqrt(214245))) / \
+        ((-sqrt(4425.3125) - sqrt(881659205) - sqrt(13300805)) - (-sqrt(245) - (-sqrt(2000)) - sqrt(733445)))
+check(expr5, sp.Rational(1, 2))
+
+
+print("=== Asymétrique chaotique ===\n")
+
+expr6 = (sqrt(221445125) - (sqrt(214245) - sqrt(1.417621505e10))) / \
+        (sqrt(881659205) - (sqrt(733445) - sqrt(5.667185185e10)))
+check(expr6, sp.Rational(1, 2))
+
+expr7 = (1/sqrt(0.512) - (sqrt(25.3125) - sqrt(151.25) - sqrt(720))) / \
+        (-sqrt(4425.3125) - (-sqrt(3511.25) - (-sqrt(2000) - sqrt(245))))
+check(expr7, sp.Rational(1, 2))
+
+
+print("=== Asymétrique ordonnée ===\n")
+
+expr8 = (1/sqrt(0.512) - (sqrt(25.3125) - sqrt(151.25))) / \
+        (-sqrt(4425.3125) - (-sqrt(3511.25) - (-sqrt(2000))))
+check(expr8, -sp.Rational(1, 6))
+
+expr9 = ((1/sqrt(0.512) - sqrt(25.3125)) - (sqrt(151.25) - sqrt(720) - sqrt(3125))) / \
+        ((-sqrt(4425.3125) - (-sqrt(3511.25))) - (-sqrt(2000) - sqrt(245) - sqrt(1805)))
+check(expr9, 1.039130435)
+
+expr10 = ((sqrt(25.3125) - sqrt(720)) - (sqrt(151.25) - 1/sqrt(0.512) - sqrt(3125))) / \
+         ((-sqrt(3511.25) - sqrt(245)) - (-sqrt(2000) - sqrt(4425.3125) - sqrt(1805)))
+check(expr10, 1.012195122)
+\end{pycode}
+\textbf{Interprétation conceptuelle}
+
+« Ce sont tous des ensembles de nombres premiers qui ont pour caractéristique que chaque nombre premier est infini chacun. »
+
+Chaque nombre premier, bien qu’unique et fini en apparence, porte en lui une forme 
+d’infinité — par sa place dans une suite infinie, par son irréductibilité, par son rôle 
+fondamental dans la structure des entiers.
+
+Selon Philippe Thomas Savard, chaque nombre premier peut être vu comme un portail 
+vers l’infini, une singularité contenant l’univers entier des rapports et des symétries.
+
+\medskip
+
+\textbf{Lecture mathématique stricte}
+
+\begin{itemize}
+    \item Les nombres premiers sont infinis en quantité (théorème d’Euclide).
+    \item L’auteur va plus loin : il avance que chaque nombre premier est « un infini en soi ».
+    \item Cela peut se comprendre ainsi :
+    \begin{itemize}
+        \item chaque nombre premier génère une infinité de structures (suites, groupes, extensions) ;
+        \item chaque nombre premier possède une infinité de propriétés (divisibilité, congruences, multiplicativité) ;
+        \item chaque nombre premier est une entité irréductible mais universelle, comme un atome fondamental dans la matière des nombres.
+    \end{itemize}
+\end{itemize}
+\noindent
+\textbf{Les différents rapports triangulaires \(1/n\) permettant le dévoilement de nombres premiers}
+(deux exemples dans les sections suivantes; voir aussi l’annexe pour les 14 rapports complets).
+
+\bigskip
+
+\textbf{— La méthode de Philippôt pour le rapport triangulaire \(1/3\), appliquée à une suite fractionnaire de 10 termes}
+
+\textbf{Étape 1}
+\[
+\frac{1}{3^{10} - 3^{8}} + \frac{1}{3^{9} - 3^{7}} + \frac{1}{3^{8}} + \frac{1}{3^{7}} + \frac{1}{3^{6}} + \frac{1}{3^{5}} + \frac{1}{3^{4}} + \frac{1}{3^{3}} + \frac{1}{3^{2}} + \frac{1}{3^{1}}
+= \frac{1}{2}
+\]
+
+\textbf{Étape 2}
+\[
+\frac{1}{3^{11} - 3^{9}} + \frac{1}{3^{10} - 3^{8}} + \frac{1}{3^{9}} + \frac{1}{3^{8}} + \frac{1}{3^{7}} + \frac{1}{3^{5}} + \frac{1}{3^{4}} + \frac{1}{3^{3}} + \frac{1}{3^{2}} + \frac{1}{3^{1}}
+= \frac{1}{2} - \frac{1}{3^{6}}
+\]
+
+\textbf{Étape 3}
+\[
+\frac{1}{3^{12} - 3^{10}} + \frac{1}{3^{11} - 3^{9}} + \frac{1}{3^{10}} + \frac{1}{3^{9}} + \frac{1}{3^{8}} + \frac{1}{3^{5}} + \frac{1}{3^{4}} + \frac{1}{3^{3}} + \frac{1}{3^{2}} + \frac{1}{3^{1}}
+= \frac{1}{2} - \left(\frac{1}{3^{6}} + \frac{1}{3^{7}}\right)
+\]
+
+\textbf{Étape 4}
+\[
+\frac{1}{3^{13} - 3^{11}} + \frac{1}{3^{12} - 3^{10}} + \frac{1}{3^{11}} + \frac{1}{3^{10}} + \frac{1}{3^{9}} + \frac{1}{3^{5}} + \frac{1}{3^{4}} + \frac{1}{3^{3}} + \frac{1}{3^{2}} + \frac{1}{3^{1}}
+= \frac{1}{2} - \left(\frac{1}{3^{6}} + \frac{1}{3^{7}} + \frac{1}{3^{8}}\right)
+\]
+
+\textit{Note explicative :}  
+Chaque étape ajoute deux nouveaux termes en tête de la suite, tout en soustrayant progressivement les puissances intermédiaires de 3.  
+Le résultat reste centré autour de \(1/2\), avec des ajustements explicites.
+
+\bigskip
+
+\textbf{— Interprétation et généralisation de la méthode}
+
+Comme on peut l’observer dans les étapes précédentes, la somme fractionnaire construite selon la méthode de Philippôt pour le rapport triangulaire aboutit à un résultat égal à \(1/2\).  
+Cette valeur est significative dans le cadre de l’hypothèse de Bernhard Riemann, où l’auteur, Philippe Thomas Savard, cherche à maintenir le cap sur un pôle fondamental : le \textbf{pôle 1}.
+
+L’auteur établit une analogie entre le résultat de cette somme et la position du pôle.  
+En effet, la somme initiale est de \(1/2\).  
+Si l’on applique ce processus de manière itérative à des rapports successifs tels que \(1/4\), \(1/5\), \(1/6\)… jusqu’à \(1/n\), chaque somme correspondante semble suivre une logique ordonnée :
+
+\[
+\text{Somme des fractions} = 1 \quad \leftrightarrow \quad \frac{1}{2} \text{ (rapport commun)}
+\]
+\[
+\text{Somme des fractions} = \frac{1}{2} \quad \leftrightarrow \quad \frac{1}{3} \text{ (rapport commun)}
+\]
+\[
+\text{Somme des fractions} = \frac{1}{3} \quad \leftrightarrow \quad \frac{1}{4} \text{ (rapport commun)}
+\]
+\[
+\cdots
+\]
+\[
+\frac{1}{n} = \frac{1}{n-1}, \qquad
+\frac{1}{n_i} = \frac{1}{n_i - 1}
+\]
+
+\textit{Note interprétative :}  
+Cette chaîne d’égalités doit être comprise comme une correspondance symbolique, non comme une égalité arithmétique stricte.  
+Elle illustre une progression triangulaire inversée, où chaque rapport est lié au précédent par une transformation de la suite.
+
+Ainsi, l’auteur montre qu’il est possible de rester cohérent avec les spécifications de l’énigme et son pôle unique, en construisant des suites fractionnaires dont les sommes convergent vers des valeurs symboliques liées à ce pôle.
+
+\bigskip
+
+\textbf{— Formalisme fractionnaire généralisé}
+
+Les puissances utilisées pour le numérateur des rapports fractionnaires suivent une progression croissante.  
+Le minimum observé est :
+
+\[
+\frac{1/3^{2}}{1/3^{1}} = \frac{1}{3}
+\]
+
+Ce rapport illustre une transition élémentaire entre deux puissances successives de 3.
+
+En généralisant, on obtient :
+
+\[
+\frac{1/3^{n+1}}{1/3^{n}} = \frac{1}{3}
+\]
+
+Ce rapport reste constant pour tout entier naturel \(n\).  
+Ainsi, chaque étape de la progression fractionnaire conserve une symétrie multiplicative fondée sur le facteur \(1/3\).
+
+Même lorsque l’exposant tend vers l’infini, les termes \(1/3^{n}\) tendent vers zéro, mais leur rapport successif reste invariant :
+
+\[
+\lim_{n \to \infty} \frac{1/3^{n+1}}{1/3^{n}} = \frac{1}{3}
+\]
+
+\textit{Note fondamentale :}  
+Ce comportement asymptotique illustre une structure stable dans le chaos de l’infini.  
+Même si les termes deviennent infinitésimaux, leur rapport reste constant.  
+Cela confère à la méthode de Philippôt une robustesse formelle et une élégance conceptuelle.
+\noindent
+\textbf{Possibilité d’obtenir un résultat égal à 1 pour différents rapports triangulaires}
+
+Il est possible d’obtenir, pour différents rapports triangulaires qui forment des suites dont 
+le résultat est différent de \(1\), une version où le résultat lui-même devient égal à \(1\). 
+L’auteur associe ce résultat au pôle \((1)\) évoqué dans l’énigme.
+
+\bigskip
+
+\textbf{Méthode de Philippôt avec une somme fractionnaire différente de \(1/2\), mais dont la somme finale reste égale à 1}
+
+\textbf{Étape 1}
+\[
+\frac{2}{3^{10} - 3^{8}} + \frac{2}{3^{9} - 3^{7}} + \frac{2}{3^{8}} + \frac{2}{3^{7}} + \frac{2}{3^{6}} + 
+\frac{2}{3^{5}} + \frac{2}{3^{4}} + \frac{2}{3^{3}} + \frac{2}{3^{2}} + \frac{2}{3^{1}} = 1
+\]
+
+\textbf{Étape 2}
+\[
+\frac{2}{3^{11} - 3^{9}} + \frac{2}{3^{10} - 3^{8}} + \frac{2}{3^{9}} + \frac{2}{3^{8}} + \frac{2}{3^{7}} +
+\frac{2}{3^{5}} + \frac{2}{3^{4}} + \frac{2}{3^{3}} + \frac{2}{3^{2}} + \frac{2}{3^{1}}
+= 1 - \frac{2}{3^{6}}
+\]
+
+\textbf{Étape 3}
+\[
+\frac{2}{3^{12} - 3^{10}} + \frac{2}{3^{11} - 3^{9}} + \frac{2}{3^{10}} + \frac{2}{3^{9}} + \frac{2}{3^{8}} +
+\frac{2}{3^{5}} + \frac{2}{3^{4}} + \frac{2}{3^{3}} + \frac{2}{3^{2}} + \frac{2}{3^{1}}
+= 1 - \left(\frac{2}{3^{6}} + \frac{2}{3^{7}}\right)
+\]
+
+\textbf{Étape 4}
+\[
+\frac{2}{3^{13} - 3^{11}} + \frac{2}{3^{12} - 3^{10}} + \frac{2}{3^{11}} + \frac{2}{3^{10}} + \frac{2}{3^{9}} +
+\frac{2}{3^{5}} + \frac{2}{3^{4}} + \frac{2}{3^{3}} + \frac{2}{3^{2}} + \frac{2}{3^{1}}
+= 1 - \left(\frac{2}{3^{6}} + \frac{2}{3^{7}} + \frac{2}{3^{8}}\right)
+\]
+
+\bigskip
+
+\textbf{11–11.7 — Méthode de Philippôt au rapport triangulaire \(1/4\)}
+
+\textbf{Étape 1}
+\[
+\frac{3}{4^{10} - 4^{8}} + \frac{3}{4^{9} - 4^{7}} + \frac{3}{4^{8}} + \frac{3}{4^{7}} + \frac{3}{4^{6}} +
+\frac{3}{4^{5}} + \frac{3}{4^{4}} + \frac{3}{4^{3}} + \frac{3}{4^{2}} + \frac{3}{4^{1}} = 1
+\]
+
+\textbf{Étape 2}
+\[
+\frac{3}{4^{11} - 4^{9}} + \frac{3}{4^{10} - 4^{8}} + \frac{3}{4^{9}} + \frac{3}{4^{8}} + \frac{3}{4^{7}} +
+\frac{3}{4^{5}} + \frac{3}{4^{4}} + \frac{3}{4^{3}} + \frac{3}{4^{2}} + \frac{3}{4^{1}}
+= 1 - \frac{3}{4^{6}}
+\]
+
+\textbf{Étape 3}
+\[
+\frac{3}{4^{12} - 4^{10}} + \frac{3}{4^{11} - 4^{9}} + \frac{3}{4^{10}} + \frac{3}{4^{9}} + \frac{3}{4^{8}} +
+\frac{3}{4^{5}} + \frac{3}{4^{4}} + \frac{3}{4^{3}} + \frac{3}{4^{2}} + \frac{3}{4^{1}}
+= 1 - \left(\frac{3}{4^{6}} + \frac{3}{4^{7}}\right)
+\]
+
+\textbf{Étape 4}
+\[
+\frac{3}{4^{13} - 4^{11}} + \frac{3}{4^{12} - 4^{10}} + \frac{3}{4^{11}} + \frac{3}{4^{10}} + \frac{3}{4^{9}} +
+\frac{3}{4^{5}} + \frac{3}{4^{4}} + \frac{3}{4^{3}} + \frac{3}{4^{2}} + \frac{3}{4^{1}}
+= 1 - \left(\frac{3}{4^{6}} + \frac{3}{4^{7}} + \frac{3}{4^{8}}\right)
+\]
+\section*{Théorie sur les fractions : entre position, composition et opération}
+
+\subsection*{1.5 : un nombre composé, et non un « 1.5\textsuperscript{ième} rang »}
+
+Nous pouvons observer que \(1.5\) n’est pas le « 1.5\textsuperscript{ième} » nombre :
+
+\begin{itemize}
+    \item \(1.5 = 1 + \tfrac{1}{2}\) est une somme, une \textit{composition}, et non une position dans une suite.
+    \item En termes de rang, les nombres décimaux ne correspondent pas à des positions entières.
+    \item Dire que \(1.5\) est « entre le premier et le deuxième » est géométriquement vrai, mais ordinalement faux.
+\end{itemize}
+
+\subsection*{Le problème du dénominateur décimal : \(1/1.5\)}
+
+\textbf{Tension logique :}
+
+\begin{itemize}
+    \item \(1/1.5 = 2/3\), ce qui est mathématiquement correct.
+    \item Mais écrire \(1/1.5\) semble heurter une logique positionnelle :
+    \begin{itemize}
+        \item Le dénominateur est censé représenter une unité de mesure, une division de l’unité.
+        \item Or \(1.5\) n’est pas une division simple : c’est une somme de divisions.
+    \end{itemize}
+\end{itemize}
+
+L’auteur propose que le dénominateur soit toujours une \textit{unité logique}, et non une \textit{valeur composée}.
+
+\subsection*{Vers une logique positionnelle des fractions}
+
+Il propose une vision où :
+
+\begin{itemize}
+    \item \(1/2\) est la moitié de l’unité, située entre 0 et 1.
+    \item \(1.5\) est la moitié de 3, mais aussi \(1 + \tfrac{1}{2}\), donc à mi-chemin entre 1 et 2.
+    \item \(3/1.5 = 2\), mais ce « 2 » n’est ni le deuxième nombre, ni une demi-unité.
+\end{itemize}
+
+Cela amène à une critique du langage fractionnaire :
+
+\begin{itemize}
+    \item Les fractions comme \(1/1.5\) ou \(3/1.5\) sont arithmétiquement valides, mais logiquement ambiguës.
+    \item Philippôt propose une vision où les fractions doivent respecter la structure \textit{positionnelle} des nombres.
+\end{itemize}
+
+\subsection*{Table des expressions}
+
+\begin{center}
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Terme proposé} & \textbf{Définition logique} \\
+\hline
+Fraction positionnelle & Fraction exprimant une relation entre des positions dans une suite logique. \\
+\hline
+Unité composée & Nombre formé par la somme de plusieurs unités fractionnaires (ex. : \(1 + \tfrac{1}{2}\)). \\
+\hline
+Fraction illogique & Fraction dont le dénominateur est une somme ou une position ambiguë. \\
+\hline
+Fraction géométrique & Fraction exprimant une position dans l’espace entre deux entiers. \\
+\hline
+Fraction ordinale & Fraction exprimant un rang ou une place dans une suite ordonnée. \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{La position des inverses rationnels}
+
+\begin{quote}
+« Dans la logique des nombres, toutes les fractions ne sont pas équivalentes : certaines expriment une mesure, d’autres une position, et d’autres encore une composition. Ainsi, \(1/2\) est la moitié de l’unité, mais \(1/1.5\) est la moitié d’un composé — ce qui soulève une tension entre l’arithmétique et la logique. »
+\end{quote}
+\textbf{Méthode de Philippôt : détermination des deux suites pour le rapport triangulaire 1/3, lorsque la suite fractionnaire tend vers 1/2}\\[6pt]
+\textbf{Tableau des deux suites permettant de déterminer le nombre premier 227, le 49\textsuperscript{ième} nombre premier}\\[6pt]
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{1\textsuperscript{ère} suite} & & \textbf{2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\left((1^1)^2 + (3^1)^2\right)^{1/2}$ &
+ & $\left((1^1)^2 + (3^1)^2\right)^{1/2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\left((3^1)^2 + (3^2)^2\right)^{1/2}$ &
+ & $\left((3^1)^2 + (3^2)^2\right)^{1/2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\left((3^2)^2 + (3^3)^2\right)^{1/2}$ &
+ & $\left((3^2)^2 + (3^3)^2\right)^{1/2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\left((3^3)^2 + (3^4)^2\right)^{1/2}$ &
+ & $\left((3^3)^2 + (3^4)^2\right)^{1/2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\left((3^4)^2 + (3^5)^2\right)^{1/2}$ &
+ & $\left((3^4)^2 + (3^5)^2\right)^{1/2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\left((3^5)^2 + (3^6)^2\right)^{1/2}$ &
+ & $\left((3^6)^2 + (3^7)^2\right)^{1/2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\left((3^6)^2 + (3^7)^2\right)^{1/2}$ &
+ & $\left((3^7)^2 + (3^8)^2\right)^{1/2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\left((3^7)^2 + (3^8)^2\right)^{1/2}$ &
+ & $\left((3^8)^2 + (3^9)^2\right)^{1/2}$ \\
+\hline
+\text{sin }18.43494882^\circ &
+$\times (3 - 1/3)$ &
+ & $\times (3 - 1/3)$ \\
+\hline
+9\textsuperscript{ième} &
+$\left((3^8 - 3^6)^2 + (3^9 - 3^7)^2\right)^{1/2}$ &
+ & $\left((3^9 - 3^7)^2 + (3^{10} - 3^8)^2\right)^{1/2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\left((3^9 - 3^7)^2 + (3^{10} - 3^8)^2\right)^{1/2}$ &
+ & $\left((3^{10} - 3^8)^2 + (3^{11} - 3^9)^2\right)^{1/2}$ \\
+\hline
+\textbf{Somme =} &
+$\sqrt{7079856640}$ &
+ & $\sqrt{6.333294724\times 10^{10}}$ \\
+\hline
+\end{tabular}
+\end{table}
+\newpage
+\subsection*{Vérification}
+
+% --- Digamma à la 8ième position de la 1ère suite ---
+\[
+\left((3^7)^2 + (3^8)^2\right)^{1/2}
+= \sqrt{472829690}
+= \py{ ((3**7)**2 + (3**8)**2)**0.5 }
+\]
+
+% --- Digamma calculé ---
+\[
+\sqrt{7079856640} - \sqrt{472829690}
+= \sqrt{5963852410}
+= \py{ (7079856640**0.5) - (472829690**0.5) }
+\]
+
+% --- Vérification du 49ième nombre premier ---
+\[
+\frac{
+\sqrt{6.333294724\times 10^{10}} - \sqrt{5963852410}
+}{
+\left((3^5)^2 + (3^6)^2\right)^{1/2}
+}
+= 227
+= \py{
+((6.333294724e10)**0.5 - (5963852410**0.5))
+/
+(((3**5)**2 + (3**6)**2)**0.5)
+}
+\]
+\textbf{Tableau pour le rapport 1/3, mais dont toutes les valeurs sont tirées de la suite fractionnaire ayant pour numérateur (2). Exemple : $2/3^n$.}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère}  & $\sqrt{13}+ $              & & $\sqrt{13}+ $ \\
+2\textsuperscript{ième} & $\sqrt{117}+ $             & & $\sqrt{117}+ $ \\
+3\textsuperscript{ième} & $\sqrt{1053}+ $            & & $\sqrt{1053}+ $ \\
+4\textsuperscript{ième} & $\sqrt{9477}+ $            & & $\sqrt{9477}+ $ \\
+5\textsuperscript{ième} & $\sqrt{85293}+ $           & & $\sqrt{85293}+ $ \\
+6\textsuperscript{ième} & $\sqrt{767637}+ $          & Substitution & $\sqrt{6908733}$ \\
+7\textsuperscript{ième} & $\sqrt{6908733}+ $         & & $\sqrt{62178597}$ \\
+8\textsuperscript{ième} & $\sqrt{62178597}+ $        & $\times(3 - 1/3)$ & $\sqrt{559607373}$ \\
+9\textsuperscript{ième} & $\sqrt{44158912}+ $        & & $\sqrt{3979430208}$ \\
+10\textsuperscript{ième} & $\sqrt{3979430208}$       & & $\sqrt{3.581487187\times 10^{10}}$ \\
+\hline
+\textbf{Somme} & $\sqrt{9203813632}$ & & $\sqrt{8.233283141\times 10^{10}}$ \\
+\hline
+\end{tabular}
+\end{center}
+\textbf{Digamma à la 8\textsuperscript{ième} position :} 
+\[
+\sqrt{62178597}
+\]
+
+\textbf{Digamma calculé :}
+\[
+\sqrt{9203813632} - \sqrt{62178597} = \sqrt{7753008133}
+\]
+
+\[
+\frac{\sqrt{8.233283141\times 10^{10}} - \sqrt{7753008133}}{\sqrt{767637}}
+= 227
+\]
+
+Le résultat obtenu est le \textbf{49\textsuperscript{ième} nombre premier}.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+# Données
+d8 = sqrt(62178597)
+digamma_calc = sqrt(9203813632) - d8
+digamma_final = sqrt(8.233283141e10) - sqrt(7753008133)
+ratio = digamma_final / sqrt(767637)
+
+# Liste des premiers pour vérification
+primes = list(sp.primerange(1, 300))
+
+print("=== Validation du digamma ===\n")
+print("Digamma 8e position :", d8)
+print("Digamma calculé :", digamma_calc)
+print("Résultat final :", ratio)
+
+# Vérification du rang du nombre premier
+if int(ratio) in primes:
+    print(f"\n{int(ratio)} est bien un nombre premier.")
+    print(f"Il s'agit du {primes.index(int(ratio)) + 1}ième nombre premier.")
+else:
+    print("Le résultat n'est pas un nombre premier.")
+\end{pycode}
+\medskip
+
+Comme nous pouvons l’observer dans ces deux exemples où le rapport triangulaire varie de $1/2$, 
+le nombre premier déterminé à l’aide de la même méthode pour les deux rapports n’est pas le même 
+que la quantité de termes contenus dans les suites. 
+
+Pour un rapport $1/2$, dix termes permettaient d’obtenir le nombre premier $29$, soit le 
+dixième nombre premier. Cette fois-ci, dans les deux cas, à l’aide de dix termes, nous déterminons 
+le \textbf{49\textsuperscript{ième}} nombre premier.
+
+Pour l’auteur Philippe Thomas Savard, la raison est analogue à l’expérience de pensée présentée 
+en ouverture sur l’analyse granulométrique : lorsque deux types de sols sont inclus dans un seul, 
+il faut substituer un tamis d’une série par un tamis de l’autre série et en retirer un, sans quoi 
+l’analyse granulométrique donne l’impression que les granulats remontent les tamis, ce qui est 
+impossible.
+
+Dans notre méthode, deux types de nombres sont inclus dans l’ensemble à comparer : les nombres 
+composés et les nombres premiers. Il est possible d’obtenir, pour un rapport autre que $1/2$, 
+comme dans nos deux derniers exemples, le dixième nombre premier $29$ pour le rapport $1/3$ à 
+l’aide des valeurs des deux suites.
+
+Le digamma calculé est alors modifié et devient de rapport périodique avec celui du nombre $227$. 
+Pour l’auteur, cette valeur périodique — toujours exprimée sous forme de racines carrées dans 
+l’ensemble de son travail — indique une cohérence profonde entre les périodes associées à $29$ 
+et à $227$.
+\textbf{Tableau des nombres premiers 223, 227 :}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Nombre premier} & \textbf{223} & \textbf{227} \\
+\hline
+\textbf{Somme 1\textsuperscript{ère} suite} 
+& $\sqrt{786591610}$ 
+& $\sqrt{7079856640}$ \\
+\hline
+\textbf{Somme 2\textsuperscript{ième} suite} 
+& $\sqrt{6951132250}$ 
+& $\sqrt{6.333294724\times 10^{10}}$ \\
+\hline
+\end{tabular}
+\end{center}
+\textbf{Calculs préliminaires :}
+
+\[
+\frac{\sqrt{7079856640}-\sqrt{786591610}}{3^8}
+= 8.549861822
+\]
+
+\[
+\frac{\sqrt{6.333294724\times 10^{10}}-\sqrt{6951132250}}{3^8}
+= 25.64958547
+\]
+
+\textbf{Équations de la 1\textsuperscript{ère} et 2\textsuperscript{ième} suite :}
+
+\[
+\left(\frac{8.549861822}{6}\times 3^n\right)-\sqrt{2.5}
+= \text{Somme 1\textsuperscript{ère} suite}
+\]
+
+\[
+\left(\frac{25.64958547}{6}\times 3^n\right)-(487\sqrt{2.5})
+= \text{Somme 2\textsuperscript{ième} suite}
+\]
+
+\bigskip
+
+\textbf{Déterminer combien il y a de nombres entre 227 et 173 :}
+
+\textbf{1. Somme première suite du nombre suivant 173, soit 179 :}
+
+\[
+\left(\frac{8.549861822}{6}\times 3^2\right)-\sqrt{2.5}
+= \sqrt{126.4197531}
+\]
+
+\textbf{2. Somme deuxième suite 227 :}
+
+\[
+\left(\frac{25.64958547}{6}\times 3^{10}\right)-(487\sqrt{2.5})
+= \sqrt{6.333294726\times 10^{10}}
+\]
+
+\textbf{3. Digamma calculé 227 :}
+
+\[
+\sqrt{7079856640}-\sqrt{472829690}
+= \sqrt{5963852410}
+\]
+
+\textbf{4. Digamma calculé 173 :}
+
+\[
+\left(\frac{25.64958547}{6}\times 3^1\right)-(487\sqrt{2.5})
+= -\sqrt{573336.4197}
+\]
+
+\[
+\left(
+\frac{-\sqrt{573336.4197}}
+{\sqrt{(3^5)^2+(3^6)^2}}
+-173
+\right)
+\times
+\sqrt{(3^5)^2+(3^6)^2}
+=
+-\sqrt{1.78766865\times 10^{10}}
+\]
+
+\textbf{5. Différence triangulaire :}
+
+\[
+\sqrt{126.4197531}
+-
+\left(\sqrt{6.333294726\times 10^{10}}-\sqrt{5963852410}\right)
+=
+-\sqrt{3.042343679\times 10^{10}}
+\]
+
+\textbf{6. Nombre d’entiers entre 227 et 173 :}
+
+\[
+\frac{
+-\sqrt{3.042343679\times 10^{10}}
+-
+\left(-\sqrt{1.78766865\times 10^{10}}\right)
+}{
+\sqrt{(3^5)^2+(3^6)^2}
+}
+= -53
+\]
+
+\[
+226 - 173 = -53
+\]
+
+\[
+\text{Il y a donc\ } -53 \ \text{nombres entre\ 227 et\ 173 (inclusivement).}
+\]
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION DES CALCULS ===\n")
+
+# 1. Préliminaires
+v1 = (sqrt(7079856640) - sqrt(786591610)) / 3**8
+v2 = (sqrt(6.333294724e10) - sqrt(6951132250)) / 3**8
+
+print("Préliminaire 1 =", sp.N(v1, 12))
+print("Préliminaire 2 =", sp.N(v2, 12), "\n")
+
+# 2. Sommes des suites
+S1_179 = (8.549861822/6)*3**2 - sqrt(2.5)
+S2_227 = (25.64958547/6)*3**10 - 487*sqrt(2.5)
+
+print("Somme 1ère suite 179 =", sp.N(S1_179, 12))
+print("Somme 2ème suite 227 =", sp.N(S2_227, 12), "\n")
+
+# 3. Digamma 227
+dig227 = sqrt(7079856640) - sqrt(472829690)
+print("Digamma 227 =", sp.N(dig227, 12), "\n")
+
+# 4. Digamma 173
+dig173 = (25.64958547/6)*3**1 - 487*sqrt(2.5)
+print("Digamma 173 =", sp.N(dig173, 12))
+
+norm = sqrt(3**10 + 3**12)
+step173 = (dig173/norm - 173)*norm
+print("Étape triangulaire 173 =", sp.N(step173, 12), "\n")
+
+# 5. Différence triangulaire
+diff = sqrt(126.4197531) - (sqrt(6.333294726e10) - sqrt(5963852410))
+print("Différence triangulaire =", sp.N(diff, 12), "\n")
+
+# 6. Nombre d'entiers entre 227 et 173
+count = (diff - step173) / norm
+print("Résultat final =", sp.N(count, 12))
+
+\end{pycode}
+\newpage
+\textbf{Tableau des deux suites permettant de déterminer le nombre premier 947 en rapport triangulaire $1/4$ :}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{1\textsuperscript{ère} suite} & & \textbf{2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{(1^2)^2 + (4^1)^2}$ &
+&
+$\sqrt{(1^2)^2 + (4^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(4^1)^2 + (4^2)^2}$ &
+&
+$\sqrt{(4^1)^2 + (4^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(4^2)^2 + (4^3)^2}$ &
+&
+$\sqrt{(4^2)^2 + (4^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(4^3)^2 + (4^4)^2}$ &
+&
+$\sqrt{(4^3)^2 + (4^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(4^4)^2 + (4^5)^2}$ &
+&
+$\sqrt{(4^4)^2 + (4^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(4^5)^2 + (4^6)^2}$ &
+&
+$\sqrt{(4^6)^2 + (4^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(4^6)^2 + (4^7)^2}$ &
+&
+$\sqrt{(4^7)^2 + (4^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(4^7)^2 + (4^8)^2}$ &
+$\times(4 - 1/4)$ &
+$\sqrt{(4^8)^2 + (4^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(4^8 - 4^6)^2 + (4^9 - 4^7)^2}$ &
+&
+$\sqrt{(4^9 - 4^7)^2 + (4^{10} - 4^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(4^9 - 4^7)^2 + (4^{10} - 4^8)^2}$ &
+&
+$\sqrt{(4^{10} - 4^8)^2 + (4^{11} - 4^9)^2}$ \\
+\hline
+\textbf{Somme} &
+$\sqrt{1.840600404\times 10^{12}}$ &
+&
+$\sqrt{2.940384489\times 10^{13}}$ \\
+\hline
+\end{tabular}
+\end{center}
+\textbf{Exemple du digamma pour le rapport triangulaire $1/4$ :}
+
+\[
+\text{Digamma} = \sqrt{(4^7)^2 + (4^8)^2}
+= \sqrt{4563402752}
+\]
+
+\[
+\text{Digamma calculé} =
+\sqrt{1.840600404\times 10^{12}}
++
+\sqrt{4563402752}
+=
+\sqrt{2.0284602898\times 10^{12}}
+\]
+
+\[
+\frac{
+\sqrt{2.940384489\times 10^{13}}
+-
+\sqrt{2.0284602898\times 10^{12}}
+}{
+\sqrt{(4^5)^2 + (4^6)^2}
+}
+= 947
+\]
+
+\[
+\text{947\ est\ un\ nombre\ premier.}
+\]
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION DU DIGAMMA (rapport 1/4) ===\n")
+
+# 1. Digamma brut
+digamma = sqrt((4**7)**2 + (4**8)**2)
+print("Digamma =", sp.N(digamma, 12))
+
+# 2. Digamma calculé
+digamma_calc = sqrt(1.840600404e12) + sqrt(4563402752)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport triangulaire
+ratio = (sqrt(2.940384489e13) - sqrt(2.0284602898e12)) / sqrt((4**5)**2 + (4**6)**2)
+print("Rapport triangulaire =", sp.N(ratio, 12))
+
+# 4. Vérification que 947 est premier
+if sp.isprime(int(ratio)):
+    print(f"\n{int(ratio)} est bien un nombre premier.")
+else:
+    print(f"\n{int(ratio)} n'est pas premier.")
+\end{pycode}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Nombre premier} & \textbf{941} & \textbf{947} \\
+\hline
+\textbf{Somme 1\textsuperscript{ère} suite} 
+& $\sqrt{1.15036826\times 10^{11}}$ 
+& $\sqrt{1.840600404\times 10^{12}}$ \\
+\hline
+\textbf{Somme 2\textsuperscript{ième} suite} 
+& $\sqrt{1.829162199\times 10^{12}}$ 
+& $\sqrt{2.940384489\times 10^{13}}$ \\
+\hline
+\end{tabular}
+\end{center}
+\textbf{Calculs préliminaires :}
+
+\[
+\frac{\sqrt{1.840600404\times 10^{12}} - \sqrt{1.15036826\times 10^{11}}}{4^8}
+= 15.52606962
+\]
+
+\[
+\frac{\sqrt{2.940384489\times 10^{13}} - \sqrt{1.829162199\times 10^{12}}}{4^8}
+= 62.10427849
+\]
+
+\textbf{Équations de la 1\textsuperscript{ère} et 2\textsuperscript{ième} suite :}
+
+\[
+\left(\frac{15.52606962}{12}\times 4^n\right) - \frac{\sqrt{17}}{2}
+= \text{Somme 1\textsuperscript{ère} suite}
+\]
+
+\[
+\left(\frac{62.10427849}{12}\times 4^n\right) - 2049\left(\frac{\sqrt{17}}{3}\right)
+= \text{Somme 2\textsuperscript{ième} suite}
+\]
+
+\bigskip
+
+\textbf{Quantité de nombres entre 947 et 881 inclus :}
+
+\textbf{1. Somme 1\textsuperscript{ère} suite du nombre suivant 881, soit 883 :}
+
+\[
+\left(\frac{15.52606962}{12}\times 4^2\right) - \frac{\sqrt{17}}{2}
+= \sqrt{347.4448784}
+\]
+
+\textbf{2. Somme 2\textsuperscript{ième} suite 947 :}
+
+\[
+\left(\frac{62.10427849}{12}\times 4^{10}\right)
+- 2049\left(\frac{\sqrt{17}}{3}\right)
+= \sqrt{2.940383744\times 10^{10}}
+\]
+
+\textbf{3. Digamma calculé 947 :}
+
+\[
+\sqrt{1.840600404\times 10^{12}} + \sqrt{4563402752}
+= \sqrt{2.0284602898\times 10^{12}}
+\]
+
+\textbf{4. Digamma calculé 881 :}
+
+\[
+\left(\frac{62.10427849}{12}\times 4^1\right)
+- 2049\left(\frac{\sqrt{17}}{3}\right)
+= -\sqrt{7814147.757}
+\]
+
+\[
+\left(
+\frac{-\sqrt{7814147.757}}{\sqrt{(4^6)^2 + (4^5)^2}}
+- 881
+\right)
+\times
+\sqrt{(4^6)^2 + (4^5)^2}
+=
+-\sqrt{1.385648794\times 10^{13}}
+\]
+
+\textbf{5. Différence triangulaire :}
+
+\[
+\sqrt{347.4448784}
+-
+\left(\sqrt{2.940383744\times 10^{13}}
+-
+\sqrt{2.0284602898\times 10^{12}}\right)
+=
+-\sqrt{1.598617618\times 10^{13}}
+\]
+
+\textbf{6. Nombre d'entiers entre 947 et 881 :}
+
+\[
+\frac{
+-\sqrt{1.598617618\times 10^{13}}
+-
+\left(-\sqrt{1.385648794\times 10^{13}}\right)
+}{
+\sqrt{(4^6)^2 + (4^5)^2}
+}
+= -65
+\]
+
+\[
+946 - 881 = -65
+\]
+
+\[
+\text{Il\ y\ a\ donc\ } -65 \text{\ nombres\ entre\ 947\ et\ 881\ (inclusivement).}
+\]
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION DES CALCULS (rapport 1/4) ===\n")
+
+# 1. Préliminaires
+v1 = (sqrt(1.840600404e12) - sqrt(1.15036826e11)) / 4**8
+v2 = (sqrt(2.940384489e13) - sqrt(1.829162199e12)) / 4**8
+
+print("Préliminaire 1 =", sp.N(v1, 12))
+print("Préliminaire 2 =", sp.N(v2, 12), "\n")
+
+# 2. Sommes des suites
+S1_883 = (15.52606962/12)*4**2 - sqrt(17)/2
+S2_947 = (62.10427849/12)*4**10 - 2049*(sqrt(17)/3)
+
+print("Somme 1ère suite 883 =", sp.N(S1_883, 12))
+print("Somme 2ème suite 947 =", sp.N(S2_947, 12), "\n")
+
+# 3. Digamma 947
+dig947 = sqrt(1.840600404e12) + sqrt(4563402752)
+print("Digamma 947 =", sp.N(dig947, 12), "\n")
+
+# 4. Digamma 881
+dig881 = (62.10427849/12)*4**1 - 2049*(sqrt(17)/3)
+print("Digamma 881 =", sp.N(dig881, 12))
+
+norm = sqrt((4**6)**2 + (4**5)**2)
+step881 = (dig881/norm - 881)*norm
+print("Étape triangulaire 881 =", sp.N(step881, 12), "\n")
+
+# 5. Différence triangulaire
+diff = sqrt(347.4448784) - (sqrt(2.940383744e13) - sqrt(2.0284602898e12))
+print("Différence triangulaire =", sp.N(diff, 12), "\n")
+
+# 6. Nombre d'entiers entre 947 et 881
+count = (diff - step881) / norm
+print("Résultat final =", sp.N(count, 12))
+\end{pycode}
+\section*{Échantillon de départ 0123456789 : est-il probant ou non ?}
+
+La manière dont l’auteur cherche à déterminer si l’échantillon de départ 0123456789 est probant 
+et s’il représente adéquatement l’ensemble de l’infini s’inspire des travaux de Georg Cantor. 
+Ces travaux démontrent qu’un carré de coordonnées $(1,1)$ peut contenir autant de points sur son 
+diamètre que sur sa surface.
+
+La méthode proposée utilise des nombres formés de suites en ordre croissant, tels que 
+$\sqrt{12.34567901}$. Par une série de manipulations de l’expression, l’auteur parvient à dégager 
+des paires, des triplets, et ainsi de suite, de nombres successifs qui recomposent l’échantillon 
+dans différents ordres. Ce processus lui permet de montrer que l’échantillon est représentatif de 
+l’infini, puisque les groupes de nombres forment des cycles tels que 0123456789, réorganisés en 
+diverses combinaisons.
+
+Afin d’exprimer que les nombres premiers sont eux-mêmes des infinis et qu’ils peuvent tous être 
+placés sur une droite, l’auteur construit une nomenclature fondée sur un système de pourcentage 
+de $(0)$. Ce système permet de positionner tous les nombres premiers, positifs comme négatifs, 
+sur une droite ayant pour origine $(0)$.
+
+La valeur la plus proche de $(0)$ est proportionnellement représentative de l’infini. Ainsi, 
+$100\%$ de $(0)$ correspond à $(0)$. Cependant, $200\%$ de $(0)$ demeure $(0)$ si l’on considère 
+une topologie nulle deux fois plus grande, mais dont la valeur reste identiquement $(0)$. 
+La particularité est que $200\%$ de $(0)$ se situe encore plus près de $(0)$ que la plus petite 
+valeur décimale voisine de zéro.
+
+\subsection*{Nomenclature en pourcentage de (0)}
+
+\[
+- \frac{1}{2} > -2
+\]
+
+\[
+\begin{aligned}
+100\% &= 0 \\
+101\% &= -2 \\
+102\% &= 2 \\
+103\% &= -3 \\
+104\% &= 3 \\
+105\% &= -5 \\
+106\% &= 5 \\
+107\% &= -7 \\
+108\% &= 7 \\
+&\vdots \\
+149\% &= -97 \\
+150\% &= 97
+\end{aligned}
+\]
+
+\section*{Déterminer si l’échantillon 0123456789 représente l’ensemble des entiers}
+
+\[
+\left(\frac{\sqrt{12.34567901}}{10/9}\right)^2 = 10 \quad (1,0)
+\]
+
+\[
+\left(\frac{\sqrt{23.456790123}}{10/9}\right)^2 = 19 \quad (1,9)
+\]
+
+\[
+\left(\frac{\sqrt{34.567901234}}{10/9}\right)^2 = 28 \quad (2,8)
+\]
+
+\[
+\left(\frac{\sqrt{45.679012345}}{10/9}\right)^2 = 37 \quad (3,7)
+\]
+
+\[
+\left(\frac{\sqrt{56.790123456}}{10/9}\right)^2 = 46 \quad (4,6)
+\]
+
+\[
+\left(\frac{\sqrt{67.901234567}}{10/9}\right)^2 = 55 \quad (5,5)
+\]
+
+\[
+\left(\frac{\sqrt{79.01234567}}{10/9}\right)^2 = 64 \quad (6,4)
+\]
+
+\[
+\left(\frac{\sqrt{90.123456790}}{10/9}\right)^2 = 73 \quad (7,3)
+\]
+
+\[
+\frac{1.234567901}{2} = 0.61728395
+\]
+
+\[
+\left(\frac{\sqrt{0.61728395}}{10/9}\right)^2 = 0.50
+\qquad
+\left(\frac{\sqrt{0.1728395}}{10/9}\right)^2 = 0.14
+\]
+
+\[
+\left(\frac{\sqrt{0.728395}}{10/9}\right)^2 = 0.59
+\qquad
+\left(\frac{\sqrt{0.28395}}{10/9}\right)^2 = 0.23
+\]
+
+\[
+\left(\frac{\sqrt{0.8395}}{10/9}\right)^2 = 0.68
+\qquad
+\left(\frac{\sqrt{0.395}}{10/9}\right)^2 = 0.32
+\]
+
+\[
+\left(\frac{\sqrt{0.95}}{10/9}\right)^2 = 0.77
+\]
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION DE L'ÉCHANTILLON 0123456789 ===\n")
+
+def check(expr, label):
+    print(label, "=", sp.N(expr, 12))
+
+# 1 à 8 : paires 10,19,28,37,46,55,64,73
+vals = [
+    ("Pair 1", (sqrt(12.34567901)/(10/9))**2),
+    ("Pair 2", (sqrt(23.456790123)/(10/9))**2),
+    ("Pair 3", (sqrt(34.567901234)/(10/9))**2),
+    ("Pair 4", (sqrt(45.679012345)/(10/9))**2),
+    ("Pair 5", (sqrt(56.790123456)/(10/9))**2),
+    ("Pair 6", (sqrt(67.901234567)/(10/9))**2),
+    ("Pair 7", (sqrt(79.01234567)/(10/9))**2),
+    ("Pair 8", (sqrt(90.123456790)/(10/9))**2),
+]
+
+for label, expr in vals:
+    check(expr, label)
+
+print("\n=== VALIDATION DES FRACTIONS ===\n")
+
+check(1.234567901/2, "1.234567901/2")
+
+frac_vals = [
+    ("0.50", (sqrt(0.61728395)/(10/9))**2),
+    ("0.14", (sqrt(0.1728395)/(10/9))**2),
+    ("0.59", (sqrt(0.728395)/(10/9))**2),
+    ("0.23", (sqrt(0.28395)/(10/9))**2),
+    ("0.68", (sqrt(0.8395)/(10/9))**2),
+    ("0.32", (sqrt(0.395)/(10/9))**2),
+    ("0.77", (sqrt(0.95)/(10/9))**2),
+]
+
+for label, expr in frac_vals:
+    check(expr, label)
+\section*{Échantillons probants}
+
+Les suites de nombres ordonnés et leurs différents rapports nous permettent d’observer, 
+à l’aide d’opérations répétées de manière itérative sur chaque suite, un phénomène particulier. 
+Les suites sont manipulées successivement, de la même manière pour chaque cycle 01234567901. 
+Il devient alors possible de constater que la suite se reforme en groupes de deux nombres : 
+d’un cycle à l’autre, l’unité de dizaine se modifie tandis que l’unité simple diminue progressivement.
+
+Dans l’exemple, apparaît également un demi-cycle où les groupes de nombres se reforment d’un cycle 
+à l’autre. Tous les deux cycles, une dizaine s’ajoute tandis qu’une unité simple se retire. 
+Cette représentation des cycles évoque une fermeture éclair.
+
+Dans la sous-section 12.1.2, l’ensemble des nombres premiers, positifs comme négatifs, est placé 
+sur une droite. Cette représentation, qui cherche à établir un parallèle avec les méthodes de 
+Georg Cantor, révèle que les nombres premiers peuvent être situés sur le diamètre, tandis que 
+les nombres entiers composés forment l’aire d’un carré $(1,1)$.
+
+L’auteur relie ces deux observations et les interprète comme le résultat des cycles issus de 
+différentes opérations répétées, qui reformeraient toujours le même échantillon. L’idée est de 
+tisser un parallèle avec les travaux de Cantor, qui montrent que sur la surface d’un carré de 
+$(1\times 1)$, il y a autant de points sur le diamètre que sur la surface entière.
+
+Pour représenter l’infini, il emploie des nombres périodiques. En parallèle avec la théorie de 
+Philippe Thomas Savard, celui-ci utilise des suites successives de nombres, comme 79.012345679. 
+Dans la méthode de Cantor, il est préférable de ne pas approcher la valeur 9. L’auteur, dans son 
+parallèle avec cette méthode, avance que le 8 est la valeur à éviter, en raison de la position du 
+digamma retiré de la première suite et qui occupe généralement la 8\textsuperscript{ième} position. 
+C’est d’ailleurs un nombre qui n’est pas inclus dans les suites de nombres 12.34567901 qu’il emploie.
+
+Dans les explications précédentes, l’auteur utilise des suites de nombres ordonnés et décale leurs 
+positions d’une place vers la gauche, vers l’unité supérieure, afin de les soumettre systématiquement 
+aux mêmes opérations. C’est ainsi qu’il conçoit avoir démontré que l’échantillon est probant.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{porcent_zero_philippot.png}
+    \caption{Illustration des cycles successifs de l’échantillon 01234567901.}
+\end{figure}
+\section*{Conclusion}
+
+L’énigme de Bernhard Riemann, telle que présentée par Philippe Thomas Savard, reçoit ici une 
+réponse finale portant sur la question centrale de la conjecture de la fonction zêta de Riemann :
+
+\begin{quote}
+« Est-ce que tous les zéros non triviaux de la fonction zêta de Bernhard Riemann ont tous pour 
+parties réelles $\tfrac{1}{2}$ ? »
+\end{quote}
+
+Comme il a été possible de le constater dans le document consacré à la théorie de la géométrie du 
+spectre des nombres premiers — elle-même issue de la théorie de l’Univers est au carré — 
+l’auteur ne traite pas des zéros non triviaux. Il aborde plutôt la question à l’aide d’un outil 
+dynamique : la géométrie du spectre des nombres premiers. Cette géométrie constitue un instrument 
+permettant d’aboutir à une réponse unique à l’énigme de Bernhard Riemann.
+
+Dans un premier temps, comme démontré dans ce document, il est possible de déterminer de manière 
+réaliste qu’entre tous les nombres premiers, il existe une partie réelle ou distance égale à 
+$\tfrac{1}{2}$. Bien que cela ne corresponde pas exactement à la formulation classique de la 
+question, l’auteur met en lumière que, pour des paires symétriques, des triplets, et même pour 
+l’ensemble des nombres premiers lorsque leur quantité totale est paire, la moitié des nombres 
+premiers comparée à l’autre moitié est reliée par cette même valeur $\tfrac{1}{2}$.
+
+À cette étape, la réponse semblait donc assurément \textit{vraie}. Et ce, même dans des 
+comparaisons asymétriques, chaotiques, où l’ordinal des infinis éclaire les structures ordonnées.
+
+Cependant, une fois cette vérité dévoilée par la méthode démontrée dans la géométrie du spectre 
+des nombres premiers, il apparaît que la même méthode peut être appliquée à d’autres rapports 
+triangulaires. Tous les rapports testés — quatorze au total — sont présentés dans l’annexe. Les 
+rapports triangulaires allant de $\tfrac{1}{2}$ à $\tfrac{1}{12}$, $\tfrac{1}{20}$, 
+$\tfrac{1}{50}$ et $\tfrac{1}{100}$ ont été examinés. Sans exception, soit dans 100\% des cas, 
+la méthode de Philippôt permet le dévoilement de nombres premiers.
+
+Chaque fois, dix nombres premiers différents ont été vérifiés, et entre chacun d’eux apparaissait 
+toujours le rapport triangulaire correspondant au rapport initial. De plus, comme expliqué dans 
+le document, les suites fractionnaires associées à ces rapports possèdent toutes une somme égale 
+à $1$. Cette valeur constitue pour l’auteur une référence fondamentale, lui permettant de 
+maintenir le cap sur la question elle-même : le pôle $1$. C’est ce parallèle entre la somme des 
+suites fractionnaires et le pôle qui est mis en évidence dans ce travail.
+
+Bien que la méthode permette d’abord d’obtenir la valeur $\tfrac{1}{2}$, elle montre également 
+que d’autres rapports triangulaires peuvent être déterminés au même pôle $1$. La réponse finale 
+que propose Philippe Thomas Savard — bien que fondée sur des prémisses solides — ne se veut ni 
+vraie ni fausse, afin de ne pas décevoir les lecteurs optimistes. Toutefois, pour avoir 
+l’esprit en paix, et puisque tous les rapports fractionnaires peuvent mener à $1$, il déclare au 
+sujet de l’hypothèse de Bernhard Riemann :
+
+\begin{quote}
+« Est-ce que tous les zéros non triviaux ont tous pour partie réelle $\tfrac{1}{2}$ ? »  
+\textbf{Ma réponse : non.}
+\end{quote}
+
+\medskip
+
+\textit{Idioschizophrénie universitaire type !}
+
+\medskip
+
+Pour l’auteur, l’affection suspectée est bien présente.
+\section*{Annexe}
+
+\subsection*{Introduction}
+
+Tableaux pour les rapports (Bases)/(Hauteurs) de triangles 
+\[
+\frac{1}{2},\ \frac{1}{3},\ \frac{1}{4},\ \frac{1}{5},\ \frac{1}{6},\ \frac{1}{7},\ \frac{1}{8},\ \frac{1}{9},\ 
+\frac{1}{10},\ \frac{1}{11},\ \frac{1}{12},\ \frac{1}{20},\ \frac{1}{50},\ \frac{1}{100}.
+\]
+
+Tous les tableaux présentent la somme de la 1\textsuperscript{ère} et de la 2\textsuperscript{ième} suite 
+pour \textbf{10 racines uniquement}.  
+De plus, le calcul permettant de déduire le nombre premier associé à chacune des suites de 10 racines 
+est indiqué à la suite de chaque tableau.
+
+Le Digamma à soustraire ou à additionner, les indications pour résoudre le Digamma calculé, ainsi que 
+la formule permettant de déterminer directement les nombres premiers associés à chaque suite, sont 
+également fournis.
+
+Voici une vue générale du calcul permettant de déduire mathématiquement les nombres premiers.
+
+\[
+\pm\ \text{Digamma}
+\]
+
+Le Digamma peut correspondre à la 7\textsuperscript{ième}, 
+la 8\textsuperscript{ième} ou la 9\textsuperscript{ième} position de la suite.
+
+Lorsque le Digamma occupe la 9\textsuperscript{ième} position, 
+il s’agit en réalité de la 8\textsuperscript{ième} position de la 
+2\textsuperscript{ième} suite.
+
+Pour un Digamma en 7\textsuperscript{ième} ou 8\textsuperscript{ième} position, 
+il s’agit toujours de positions de la 1\textsuperscript{ère} suite.
+
+\subsubsection*{Le Digamma calculé}
+
+Le Digamma calculé se résout en effectuant la soustraction suivante :
+
+\[
+\text{Digamma calculé} =
+(\text{Somme de la 1\textsuperscript{ère} suite})
+-
+(\text{Digamma sélectionné (7\textsuperscript{ième}, 8\textsuperscript{ième} ou 9\textsuperscript{ième})})
+\]
+
+\subsubsection*{Les nombres premiers}
+
+La formule générale permettant de déterminer le nombre premier associé à la suite est :
+
+\[
+\text{Nombre premier} =
+\frac{
+\text{Somme de la 2\textsuperscript{ième} suite}
+-
+\text{Digamma calculé}
+}{
+\text{Zêta (6\textsuperscript{ième} position de la 1\textsuperscript{ère} suite)}
+}
+\]
+\newpage
+\textbf{Pour un rapport de triangle base/hauteur = 1/2 :}
+\textbf{Pour un rapport de triangle base/hauteur = 1/2 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{3452805}$ & & $\sqrt{13300805}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (2^1)^2}$ &
+&
+$\sqrt{1^2 + (2^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(2^1)^2 + (2^2)^2}$ &
+&
+$\sqrt{(2^1)^2 + (2^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(2^2)^2 + (2^3)^2}$ &
+&
+$\sqrt{(2^2)^2 + (2^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(2^3)^2 + (2^4)^2}$ &
+&
+$\sqrt{(2^3)^2 + (2^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(2^4)^2 + (2^5)^2}$ &
+&
+$\sqrt{(2^4)^2 + (2^5)^2}$ \\   % <-- Correction appliquée ici
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(2^5)^2 + (2^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(2^6)^2 + (2^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(2^6)^2 + (2^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(2^7)^2 + (2^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(2^7)^2 + (2^8)^2}$ &
+$\times (2 - 2^{-1}) \times \arcsin(1/\sqrt{5})$ &
+$\sqrt{(2^8)^2 + (2^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(2^8 - 2^6)^2 + (2^9 - 2^7)^2}$ &
+&
+$\sqrt{(2^9 - 2^7)^2 + (2^{10} - 2^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(2^9 - 2^7)^2 + (2^{10} - 2^8)^2}$ &
+&
+$\sqrt{(2^{10} - 2^8)^2 + (2^{11} - 2^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/2)}
+
+Nombre premier pour 10 racines = 29.  
+Ainsi, pour 10 racines, le nombre premier associé est le dixième dans l’ordre croissant, soit 29, 
+lorsque 2 est considéré comme le premier nombre premier.
+
+\[
+\text{Digamma (8\textsuperscript{ième} position)} 
+= -\sqrt{(2^7)^2 + (2^8)^2}
+= -\sqrt{81920}
+\]
+
+\[
+\text{Digamma calculé} 
+= \sqrt{3452805} - \sqrt{81920}
+= \sqrt{2471045}
+\]
+
+\[
+\frac{\sqrt{13300805} - \sqrt{2471045}}{\sqrt{5120}} = 29
+\]
+
+La liste des dix premiers nombres premiers est :
+
+\[
+2,\ 3,\ 5,\ 7,\ 11,\ 13,\ 17,\ 19,\ 23,\ 29
+\]
+
+Ainsi, 29 est bien le 10\textsuperscript{ième} nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/2) ===\n")
+
+# 1. Digamma (8e position)
+digamma_8 = -sqrt((2**7)**2 + (2**8)**2)
+print("Digamma (8e position) =", sp.N(digamma_8, 12))
+
+# 2. Digamma calculé
+digamma_calc = sqrt(3452805) - sqrt(81920)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(13300805) - digamma_calc) / sqrt(5120)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification que 29 est le 10e nombre premier
+premiers = list(sp.primerange(1, 100))
+print("\n10 premiers nombres premiers :", premiers[:10])
+print("10e nombre premier =", premiers[9])
+\end{pycode}
+\newpag
+\textbf{Pour un triangle de rapport Base/hauteur = 1/3 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{7079856640}$ & & $\sqrt{6.333294724\times 10^{10}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (3^1)^2}$ &
+&
+$\sqrt{1^2 + (3^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(3^1)^2 + (3^2)^2}$ &
+&
+$\sqrt{(3^1)^2 + (3^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(3^2)^2 + (3^3)^2}$ &
+&
+$\sqrt{(3^2)^2 + (3^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(3^3)^2 + (3^4)^2}$ &
+&
+$\sqrt{(3^3)^2 + (3^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(3^4)^2 + (3^5)^2}$ &
+&
+$\sqrt{(3^4)^2 + (3^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(3^5)^2 + (3^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(3^6)^2 + (3^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(3^6)^2 + (3^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(3^7)^2 + (3^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(3^7)^2 + (3^8)^2}$ &
+$\times (3 - 3^{-1}) \times \arcsin(1/\sqrt{10})$ &
+$\sqrt{(3^8)^2 + (3^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(3^8 - 3^6)^2 + (3^9 - 3^7)^2}$ &
+&
+$\sqrt{(3^9 - 3^7)^2 + (3^{10} - 3^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(3^9 - 3^7)^2 + (3^{10} - 3^8)^2}$ &
+&
+$\sqrt{(3^{10} - 3^8)^2 + (3^{11} - 3^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/3)}
+
+Pour 10 racines, le nombre premier associé n’est pas 29 (10\textsuperscript{ième} nombre premier), 
+mais bien 227, qui est le 49\textsuperscript{ième} nombre premier lorsque 2 est considéré comme 
+le premier nombre premier.
+
+\[
+\text{Digamma} 
+= \sqrt{(3^7)^2 + (3^8)^2}
+= \sqrt{47829690}
+\]
+
+\[
+\text{Digamma calculé}
+= \sqrt{7079856640} - \sqrt{47829690}
+= \sqrt{5963852410}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{6.333294724\times 10^{10}} - \sqrt{5963852410}
+}{
+\sqrt{(3^5)^2 + (3^6)^2}
+}
+= 227
+\]
+
+Ainsi, 227 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/3) ===\n")
+
+# 1. Digamma
+digamma = sqrt((3**7)**2 + (3**8)**2)
+print("Digamma =", sp.N(digamma, 12))
+
+# 2. Digamma calculé
+digamma_calc = sqrt(7079856640) - digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(6.333294724e10) - digamma_calc) / sqrt((3**5)**2 + (3**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification du rang du nombre premier
+premiers = list(sp.primerange(1, 2000))
+print("\n49e nombre premier =", premiers[48])
+\end{pycode}
+\newpage
+\textbf{Pour un triangle de rapport Base/hauteur = 1/4 :}
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/4}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{1.840600404\times 10^{12}}$ & & $\sqrt{2.940384489\times 10^{13}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (4^1)^2}$ &
+&
+$\sqrt{1^2 + (4^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(4^1)^2 + (4^2)^2}$ &
+&
+$\sqrt{(4^1)^2 + (4^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(4^2)^2 + (4^3)^2}$ &
+&
+$\sqrt{(4^2)^2 + (4^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(4^3)^2 + (4^4)^2}$ &
+&
+$\sqrt{(4^3)^2 + (4^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(4^4)^2 + (4^5)^2}$ &
+&
+$\sqrt{(4^4)^2 + (4^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(4^5)^2 + (4^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(4^6)^2 + (4^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(4^6)^2 + (4^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(4^7)^2 + (4^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(4^7)^2 + (4^8)^2}$ &
+$\times (4 - 4^{-1}) \times \arcsin(1/\sqrt{17})$ &
+$\sqrt{(4^8)^2 + (4^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(4^8 - 4^6)^2 + (4^9 - 4^7)^2}$ &
+&
+$\sqrt{(4^9 - 4^7)^2 + (4^{10} - 4^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(4^9 - 4^7)^2 + (4^{10} - 4^8)^2}$ &
+&
+$\sqrt{(4^{10} - 4^8)^2 + (4^{11} - 4^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/4)}
+
+\textbf{Note importante :}  
+Pour obtenir le digamma calculé exact à partir de la 8\textsuperscript{ième} position,  
+le digamma 
+\[
+\sqrt{(4^7)^2 + (4^8)^2}
+\]
+doit être \textbf{additionné} à la somme de la première suite, et non soustrait.  
+Cette particularité est essentielle pour obtenir la valeur correcte du digamma calculé.
+
+\[
+\text{Digamma calculé}
+= \sqrt{1.840600404\times 10^{12}}
++ \sqrt{(4^7)^2 + (4^8)^2}
+= \sqrt{2.028522904\times 10^{12}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{2.940384489\times 10^{13}}
+-
+\sqrt{2.028522904\times 10^{12}}
+}{
+\sqrt{(4^6)^2 + (4^5)^2}
+}
+= 947
+\]
+
+Ainsi, 947 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/4) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((4**7)**2 + (4**8)**2)
+print("Digamma =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (addition)
+digamma_calc = sqrt(1.840600404e12) + digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(2.940384489e13) - digamma_calc) / sqrt((4**6)**2 + (4**5)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification du rang du nombre premier
+premiers = list(sp.primerange(1, 5000))
+print("\n947 est-il premier ?", sp.isprime(947))
+print("Position de 947 parmi les premiers =", premiers.index(947) + 1)
+\end{pycode}
+\textbf{Pour un triangle de rapport Base/hauteur = 1/5 :}
+\newpage
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/5}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{1.432987061\times 10^{14}}$ & & $\sqrt{3.580561045\times 10^{15}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (5^1)^2}$ &
+&
+$\sqrt{1^2 + (5^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(5^1)^2 + (5^2)^2}$ &
+&
+$\sqrt{(5^1)^2 + (5^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(5^2)^2 + (5^3)^2}$ &
+&
+$\sqrt{(5^2)^2 + (5^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(5^3)^2 + (5^4)^2}$ &
+&
+$\sqrt{(5^3)^2 + (5^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(5^4)^2 + (5^5)^2}$ &
+&
+$\sqrt{(5^4)^2 + (5^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(5^5)^2 + (5^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(5^6)^2 + (5^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(5^6)^2 + (5^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(5^7)^2 + (5^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(5^7)^2 + (5^8)^2}$ &
+$\times (5 - 5^{-1}) \times \arcsin(1/\sqrt{26})$ &
+$\sqrt{(5^8)^2 + (5^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(5^8 - 5^6)^2 + (5^9 - 5^7)^2}$ &
+&
+$\sqrt{(5^9 - 5^7)^2 + (5^{10} - 5^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(5^9 - 5^7)^2 + (5^{10} - 5^8)^2}$ &
+&
+$\sqrt{(5^{10} - 5^8)^2 + (5^{11} - 5^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/5)}
+
+\textbf{Note importante :}  
+Pour le rapport base/hauteur = 1/5, le Digamma exact provient de la 
+7\textsuperscript{ième} position et doit être \textbf{additionné} à la somme de la première suite.  
+Cette particularité est essentielle pour obtenir la valeur correcte du Digamma calculé.
+
+\[
+\text{Digamma (7\textsuperscript{ième} position)} 
+= \sqrt{(5^6)^2 + (5^7)^2}
+\]
+
+\[
+\text{Digamma calculé}
+= \sqrt{1.432987061\times 10^{14}}
++ \sqrt{(5^6)^2 + (5^7)^2}
+= \sqrt{1.452125243\times 10^{14}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{3.580561045\times 10^{15}}
+-
+\sqrt{1.452125243\times 10^{14}}
+}{
+\sqrt{(5^5)^2 + (5^6)^2}
+}
+= 2999
+\]
+
+Ainsi, 2999 est bien un nombre premier.
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/5)}
+
+\textbf{Note importante :}  
+Pour le rapport base/hauteur = 1/5, le Digamma exact provient de la 
+7\textsuperscript{ième} position et doit être \textbf{additionné} à la somme de la première suite.  
+Cette particularité est essentielle pour obtenir la valeur correcte du Digamma calculé.
+
+\[
+\text{Digamma (7\textsuperscript{ième} position)} 
+= \sqrt{(5^6)^2 + (5^7)^2}
+\]
+
+\[
+\text{Digamma calculé}
+= \sqrt{1.432987061\times 10^{14}}
++ \sqrt{(5^6)^2 + (5^7)^2}
+= \sqrt{1.452125243\times 10^{14}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{3.580561045\times 10^{15}}
+-
+\sqrt{1.452125243\times 10^{14}}
+}{
+\sqrt{(5^5)^2 + (5^6)^2}
+}
+= 2999
+\]
+
+Ainsi, 2999 est bien un nombre premier.
+\textbf{Pour un triangle de rapport Base/hauteur = 1/6 :}
+\newpage
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/6}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{5.122793837\times 10^{15}}$ & & $\sqrt{1.8437699607\times 10^{17}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (6^1)^2}$ &
+&
+$\sqrt{1^2 + (6^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(6^1)^2 + (6^2)^2}$ &
+&
+$\sqrt{(6^1)^2 + (6^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(6^2)^2 + (6^3)^2}$ &
+&
+$\sqrt{(6^2)^2 + (6^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(6^3)^2 + (6^4)^2}$ &
+&
+$\sqrt{(6^3)^2 + (6^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(6^4)^2 + (6^5)^2}$ &
+&
+$\sqrt{(6^4)^2 + (6^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(6^5)^2 + (6^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(6^6)^2 + (6^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(6^6)^2 + (6^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(6^7)^2 + (6^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(6^7)^2 + (6^8)^2}$ &
+$\times (6 - 6^{-1}) \times \arcsin(1/\sqrt{37})$ &
+$\sqrt{(6^8)^2 + (6^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(6^8 - 6^6)^2 + (6^9 - 6^7)^2}$ &
+&
+$\sqrt{(6^9 - 6^7)^2 + (6^{10} - 6^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(6^9 - 6^7)^2 + (6^{10} - 6^8)^2}$ &
+&
+$\sqrt{(6^{10} - 6^8)^2 + (6^{11} - 6^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/6)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(6^7)^2 + (6^8)^2}
+= \sqrt{2.899474072\times 10^{12}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{5.122793837\times 10^{15}}
++
+\sqrt{2.899474072\times 10^{12}}
+=
+\sqrt{5.369442427\times 10^{15}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{1.8437699607\times 10^{17}}
+-
+\sqrt{5.369442427\times 10^{15}}
+}{
+\sqrt{(6^5)^2 + (6^6)^2}
+}
+= 7529
+\]
+
+Ainsi, 7529 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/6) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((6**7)**2 + (6**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (addition)
+digamma_calc = sqrt(5.122793837e15) + digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(1.8437699607e17) - digamma_calc) / sqrt((6**5)**2 + (6**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n7529 est-il premier ?", sp.isprime(7529))
+\end{pycode}
+\newpage
+\textbf{Pour un triangle de rapport Base/hauteur = 1/7 :}
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/7}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite}} & & \textbf{Somme 2\textsuperscript{ième} suite}} \\
+\hline
+ & $\sqrt{1.06435826\times 10^{17}}$ & & $\sqrt{5.214812712\times 10^{18}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (7^1)^2}$ &
+&
+$\sqrt{1^2 + (7^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(7^1)^2 + (7^2)^2}$ &
+&
+$\sqrt{(7^1)^2 + (7^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(7^2)^2 + (7^3)^2}$ &
+&
+$\sqrt{(7^2)^2 + (7^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(7^3)^2 + (7^4)^2}$ &
+&
+$\sqrt{(7^3)^2 + (7^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(7^4)^2 + (7^5)^2}$ &
+&
+$\sqrt{(7^4)^2 + (7^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(7^5)^2 + (7^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(7^6)^2 + (7^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(7^6)^2 + (7^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(7^7)^2 + (7^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(7^7)^2 + (7^8)^2}$ &
+$\times (7 - 7^{-1}) \times \arcsin(1/\sqrt{50})$ &
+$\sqrt{(7^8)^2 + (7^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(7^8 - 7^6)^2 + (7^9 - 7^7)^2}$ &
+&
+$\sqrt{(7^9 - 7^7)^2 + (7^{10} - 7^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(7^9 - 7^7)^2 + (7^{10} - 7^8)^2}$ &
+&
+$\sqrt{(7^{10} - 7^8)^2 + (7^{11} - 7^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/7)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(7^7)^2 + (7^8)^2}
+= \sqrt{3.391115364\times 10^{13}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{1.06435826\times 10^{17}}
++
+\sqrt{3.391115364\times 10^{13}}
+=
+\sqrt{1.102694012\times 10^{17}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{5.214812712\times 10^{18}}
+-
+\sqrt{1.102694012\times 10^{17}}
+}{
+\sqrt{(7^5)^2 + (7^6)^2}
+}
+= 16421
+\]
+
+Ainsi, 16421 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/7) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((7**7)**2 + (7**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (addition)
+digamma_calc = sqrt(1.06435826e17) + digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(5.214812712e18) - digamma_calc) / sqrt((7**5)**2 + (7**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n16421 est-il premier ?", sp.isprime(16421))
+\end{pycode}
+\newpage
+\textbf{Pour un triangle de rapport Base/hauteur = 1/8 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{1.482700943\times 10^{18}}$ & & $\sqrt{9.488771358\times 10^{19}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (8^1)^2}$ &
+&
+$\sqrt{1^2 + (8^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(8^1)^2 + (8^2)^2}$ &
+&
+$\sqrt{(8^1)^2 + (8^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(8^2)^2 + (8^3)^2}$ &
+&
+$\sqrt{(8^2)^2 + (8^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(8^3)^2 + (8^4)^2}$ &
+&
+$\sqrt{(8^3)^2 + (8^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(8^4)^2 + (8^5)^2}$ &
+&
+$\sqrt{(8^4)^2 + (8^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(8^5)^2 + (8^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(8^6)^2 + (8^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(8^6)^2 + (8^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(8^7)^2 + (8^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(8^7)^2 + (8^8)^2}$ &
+$\times (8 - 8^{-1}) \times \arcsin(1/\sqrt{65})$ &
+$\sqrt{(8^8)^2 + (8^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(8^8 - 8^6)^2 + (8^9 - 8^7)^2}$ &
+&
+$\sqrt{(8^9 - 8^7)^2 + (8^{10} - 8^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(8^9 - 8^7)^2 + (8^{10} - 8^8)^2}$ &
+&
+$\sqrt{(8^{10} - 8^8)^2 + (8^{11} - 8^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/8)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(8^7)^2 + (8^8)^2}
+= \sqrt{2.858730232\times 10^{14}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{1.482700943\times 10^{18}}
+-
+\sqrt{2.858730232\times 10^{14}}
+=
+\sqrt{1.441810891\times 10^{18}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{9.488771358\times 10^{19}}
+-
+\sqrt{1.441810891\times 10^{18}}
+}{
+\sqrt{(8^5)^2 + (8^6)^2}
+}
+= 32327
+\]
+
+Ainsi, 32327 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/8) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((8**7)**2 + (8**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (soustraction)
+digamma_calc = sqrt(1.482700943e18) - digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(9.488771358e19) - digamma_calc) / sqrt((8**5)**2 + (8**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n32327 est-il premier ?", sp.isprime(32327))
+\end{pycode}
+\textbf{Pour un triangle de rapport Base/hauteur = 1/9 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{1.519945564\times 10^{19}}$ & & $\sqrt{1.231118384\times 10^{21}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (9^1)^2}$ &
+&
+$\sqrt{1^2 + (9^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(9^1)^2 + (9^2)^2}$ &
+&
+$\sqrt{(9^1)^2 + (9^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(9^2)^2 + (9^3)^2}$ &
+&
+$\sqrt{(9^2)^2 + (9^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(9^3)^2 + (9^4)^2}$ &
+&
+$\sqrt{(9^3)^2 + (9^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(9^4)^2 + (9^5)^2}$ &
+&
+$\sqrt{(9^4)^2 + (9^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(9^5)^2 + (9^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(9^6)^2 + (9^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(9^6)^2 + (9^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(9^7)^2 + (9^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(9^7)^2 + (9^8)^2}$ &
+$\times (9 - 9^{-1}) \times \arcsin(1/\sqrt{82})$ &
+$\sqrt{(9^8)^2 + (9^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(9^8 - 9^6)^2 + (9^9 - 9^7)^2}$ &
+&
+$\sqrt{(9^9 - 9^7)^2 + (9^{10} - 9^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(9^9 - 9^7)^2 + (9^{10} - 9^8)^2}$ &
+&
+$\sqrt{(9^{10} - 9^8)^2 + (9^{11} - 9^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/9)}
+
+\textbf{Digamma (7\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(9^6)^2 + (9^7)^2}
+= \sqrt{2.315922199\times 10^{13}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{1.519945564\times 10^{19}}
+-
+\sqrt{2.315922199\times 10^{13}}
+=
+\sqrt{1.516195507\times 10^{19}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{1.231118384\times 10^{21}}
+-
+\sqrt{1.516195507\times 10^{19}}
+}{
+\sqrt{(9^5)^2 + (9^6)^2}
+}
+= 58337
+\]
+
+Ainsi, 58337 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/9) ===\n")
+
+# 1. Digamma (7e position)
+digamma = sqrt((9**6)**2 + (9**7)**2)
+print("Digamma (7e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (soustraction)
+digamma_calc = sqrt(1.519945564e19) - digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(1.231118384e21) - digamma_calc) / sqrt((9**5)**2 + (9**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n58337 est-il premier ?", sp.isprime(58337))
+\end{pycode}
+\newpage
+\textbf{Pour un triangle de rapport Base/hauteur = 1/10 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hhline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{1.224570136\times 10^{20}}$ & & $\sqrt{1.224547893\times 10^{22}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (10^1)^2}$ &
+&
+$\sqrt{1^2 + (10^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(10^1)^2 + (10^2)^2}$ &
+&
+$\sqrt{(10^1)^2 + (10^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(10^2)^2 + (10^3)^2}$ &
+&
+$\sqrt{(10^2)^2 + (10^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(10^3)^2 + (10^4)^2}$ &
+&
+$\sqrt{(10^3)^2 + (10^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(10^4)^2 + (10^5)^2}$ &
+&
+$\sqrt{(10^4)^2 + (10^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(10^5)^2 + (10^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(10^6)^2 + (10^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(10^6)^2 + (10^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(10^7)^2 + (10^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(10^7)^2 + (10^8)^2}$ &
+$\times 10 \times \arcsin(1/\sqrt{101})$ &
+$\sqrt{(10^8)^2 + (10^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(10^9)^2 + (10^8)^2}$ &
+&
+$\sqrt{(10^{10})^2 + (10^9)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(99\times 10^8 - 99\times 10^7)^2}$ &
+&
+$\sqrt{(99\times 10^9 - 99\times 10^8)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/10)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(10^7)^2 + (10^8)^2}
+= \sqrt{1.01\times 10^{16}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{1.224570136\times 10^{20}}
++
+\sqrt{1.01\times 10^{16}}
+=
+\sqrt{1.24691358\times 10^{20}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{1.224547893\times 10^{22}}
+-
+\sqrt{1.24691358\times 10^{20}}
+}{
+\sqrt{(10^5)^2 + (10^6)^2}
+}
+= 98999
+\]
+
+Ainsi, 98999 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/10) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((10**7)**2 + (10**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (addition)
+digamma_calc = sqrt(1.224570136e20) + digamma
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(1.224547893e22) - digamma_calc) / sqrt((10**5)**2 + (10**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n98999 est-il premier ?", sp.isprime(98999))
+\end{pycode}
+\newpage
+\textbf{Pour un triangle de rapport Base/hauteur = 1/11 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{S_{1,11}}$ & & $\sqrt{S_{2,11}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (11^1)^2}$ &
+&
+$\sqrt{1^2 + (11^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(11^1)^2 + (11^2)^2}$ &
+&
+$\sqrt{(11^1)^2 + (11^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(11^2)^2 + (11^3)^2}$ &
+&
+$\sqrt{(11^2)^2 + (11^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(11^3)^2 + (11^4)^2}$ &
+&
+$\sqrt{(11^3)^2 + (11^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(11^4)^2 + (11^5)^2}$ &
+&
+$\sqrt{(11^4)^2 + (11^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(11^5)^2 + (11^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(11^6)^2 + (11^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(11^6)^2 + (11^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(11^7)^2 + (11^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(11^7)^2 + (11^8)^2}$ &
+$\times 11 \times \arcsin\!\bigl(1/\sqrt{N_{11}}\bigr)$ &
+$\sqrt{(11^8)^2 + (11^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(11^8 - 11^6)^2 + (11^9 - 11^7)^2}$ &
+&
+$\sqrt{(11^9 - 11^7)^2 + (11^{10} - 11^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(11^9 - 11^7)^2 + (11^{10} - 11^8)^2}$ &
+&
+$\sqrt{(11^{10} - 11^8)^2 + (11^{11} - 11^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/11)}
+
+\textbf{Digamma (7\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(11^6)^2 + (11^7)^2}
+= \sqrt{3.82888262\times 10^{14}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{8.221121742\times 10^{22}}
+-
+\sqrt{3.82888262\times 10^{14}}
+=
+\sqrt{8.21999968\times 10^{22}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{9.947546087\times 10^{24}}
+-
+\sqrt{8.21999968\times 10^{22}}
+}{
+\sqrt{(11^5)^2 + (11^6)^2}
+}
+= 1611851
+\]
+
+Ainsi, 1611851 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/11) ===\n")
+
+# 1. Digamma (7e position)
+digamma = sqrt((11**6)**2 + (11**7)**2)
+print("Digamma (7e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (soustraction)
+digamma_calc = sqrt(8.221121742e22) - sqrt(3.82888262e14)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(9.947546087e24) - digamma_calc) / sqrt((11**5)**2 + (11**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n1611851 est-il premier ?", sp.isprime(1611851))
+\end{pycode}
+\textbf{Pour un triangle de rapport Base/hauteur = 1/12 :}
+\newpage
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/12}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{S_{1,12}}$ & & $\sqrt{S_{2,12}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (12^1)^2}$ &
+&
+$\sqrt{1^2 + (12^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(12^1)^2 + (12^2)^2}$ &
+&
+$\sqrt{(12^1)^2 + (12^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(12^2)^2 + (12^3)^2}$ &
+&
+$\sqrt{(12^2)^2 + (12^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(12^3)^2 + (12^4)^2}$ &
+&
+$\sqrt{(12^3)^2 + (12^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(12^4)^2 + (12^5)^2}$ &
+&
+$\sqrt{(12^4)^2 + (12^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(12^5)^2 + (12^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(12^6)^2 + (12^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(12^6)^2 + (12^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(12^7)^2 + (12^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(12^7)^2 + (12^8)^2}$ &
+$\times 12 \times \arcsin\!\bigl(1/\sqrt{N_{12}}\bigr)$ &
+$\sqrt{(12^8)^2 + (12^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(12^8 - 12^6)^2 + (12^9 - 12^7)^2}$ &
+&
+$\sqrt{(12^9 - 12^7)^2 + (12^{10} - 12^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(12^9 - 12^7)^2 + (12^{10} - 12^8)^2}$ &
+&
+$\sqrt{(12^{10} - 12^8)^2 + (12^{11} - 12^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/12)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(12^7)^2 + (12^8)^2}
+= \sqrt{1.861681774\times 10^{17}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{4.531028809\times 10^{21}}
+-
+\sqrt{1.861681774\times 10^{17}}
+=
+\sqrt{4.473127685\times 10^{21}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{6.524633079\times 10^{23}}
+-
+\sqrt{4.473127685\times 10^{21}}
+}{
+\sqrt{(12^5)^2 + (12^6)^2}
+}
+= 247259
+\]
+
+Ainsi, 247259 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/12) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((12**7)**2 + (12**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (soustraction)
+digamma_calc = sqrt(4.531028809e21) - sqrt(1.861681774e17)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(6.524633079e23) - digamma_calc) / sqrt((12**5)**2 + (12**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n247259 est-il premier ?", sp.isprime(247259))
+\end{pycode}
+\newpage
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/20}
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{1.158959701\times 10^{26}}$ & & $\sqrt{4.635836044\times 10^{28}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (20^1)^2}$ &
+&
+$\sqrt{1^2 + (20^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(20^1)^2 + (20^2)^2}$ &
+&
+$\sqrt{(20^1)^2 + (20^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(20^2)^2 + (20^3)^2}$ &
+&
+$\sqrt{(20^2)^2 + (20^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(20^3)^2 + (20^4)^2}$ &
+&
+$\sqrt{(20^3)^2 + (20^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(20^4)^2 + (20^5)^2}$ &
+&
+$\sqrt{(20^4)^2 + (20^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(20^5)^2 + (20^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(20^6)^2 + (20^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(20^6)^2 + (20^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(20^7)^2 + (20^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(20^7)^2 + (20^8)^2}$ &
+$\times (20 - 20^{-1}) \times \arcsin(1/\sqrt{145})$ &
+$\sqrt{(20^8)^2 + (20^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(20^8 - 20^6)^2 + (20^9 - 20^7)^2}$ &
+&
+$\sqrt{(20^9 - 20^7)^2 + (20^{10} - 20^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(20^9 - 20^7)^2 + (20^{10} - 20^8)^2}$ &
+&
+$\sqrt{(20^{10} - 20^8)^2 + (20^{11} - 20^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/20)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(20^7)^2 + (20^8)^2}
+= \sqrt{6.569984\times 10^{20}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{1.158959701\times 10^{26}}
+-
+\sqrt{6.569984\times 10^{20}}
+=
+\sqrt{1.15344745\times 10^{26}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{4.635836044\times 10^{28}}
+-
+\sqrt{1.15344745\times 10^{26}}
+}{
+\sqrt{(20^5)^2 + (20^6)^2}
+}
+= 3192419
+\]
+
+Ainsi, 3192419 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/20) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((20**7)**2 + (20**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (soustraction)
+digamma_calc = sqrt(1.158959701e26) - sqrt(6.569984e20)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(4.635836044e28) - digamma_calc) / sqrt((20**5)**2 + (20**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n3192419 est-il premier ?", sp.isprime(3192419))
+\end{pycode}
+\newpage
+\textbf{Pour un triangle de rapport Base/hauteur = 1/50 :}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+ & $\sqrt{2.481538804\times 10^{37}}$ & & $\sqrt{6.20384701\times 10^{40}}$ \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{1^2 + (50^1)^2}$ &
+&
+$\sqrt{1^2 + (50^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(50^1)^2 + (50^2)^2}$ &
+&
+$\sqrt{(50^1)^2 + (50^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(50^2)^2 + (50^3)^2}$ &
+&
+$\sqrt{(50^2)^2 + (50^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(50^3)^2 + (50^4)^2}$ &
+&
+$\sqrt{(50^3)^2 + (50^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(50^4)^2 + (50^5)^2}$ &
+&
+$\sqrt{(50^4)^2 + (50^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(50^5)^2 + (50^6)^2}$ &
+La 6\textsuperscript{ième} position est le Zêta &
+$\sqrt{(50^6)^2 + (50^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(50^6)^2 + (50^7)^2}$ &
+Substitution entre 6\textsuperscript{ième} et 7\textsuperscript{ième} &
+$\sqrt{(50^7)^2 + (50^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(50^7)^2 + (50^8)^2}$ &
+$\times (50 - 50^{-1}) \times \arcsin(1/\sqrt{145})$ &
+$\sqrt{(50^8)^2 + (50^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(50^8 - 50^6)^2 + (50^9 - 50^7)^2}$ &
+&
+$\sqrt{(50^9 - 50^7)^2 + (50^{10} - 50^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(50^9 - 50^7)^2 + (50^{10} - 50^8)^2}$ &
+&
+$\sqrt{(50^{10} - 50^8)^2 + (50^{11} - 50^9)^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/50)}
+
+\textbf{Digamma (8\textsuperscript{ième} position de la deuxième suite)} :
+
+\[
+\sqrt{(50^9)^2 + (50^8)^2}
+= \sqrt{3.816223145\times 10^{30}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{2.481538804\times 10^{37}}
+-
+\sqrt{3.816223145\times 10^{30}}
+=
+\sqrt{2.479592133\times 10^{37}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{6.20384701\times 10^{40}}
+-
+\sqrt{2.479592133\times 10^{37}}
+}{
+\sqrt{(50^6)^2 + (50^7)^2}
+}
+= 312379999
+\]
+
+Ainsi, 312379999 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/50) ===\n")
+
+# 1. Digamma (8e position de la deuxième suite)
+digamma = sqrt((50**9)**2 + (50**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (soustraction)
+digamma_calc = sqrt(2.481538804e37) - sqrt(3.816223145e30)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(6.20384701e40) - digamma_calc) / sqrt((50**6)**2 + (50**7)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n312379999 est-il premier ?", sp.isprime(312379999))
+\end{pycode}
+\newpage
+\subsection*{Pour un triangle de rapport Base/hauteur = 1/100}
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Position} & \textbf{Somme 1\textsuperscript{ère} suite} & & \textbf{Somme 2\textsuperscript{ième} suite} \\
+\hline
+1\textsuperscript{ère} &
+$\sqrt{(1^2)^2 + (100^1)^2}$ &
+&
+$\sqrt{(1^2)^2 + (100^1)^2}$ \\
+\hline
+2\textsuperscript{ième} &
+$\sqrt{(100^1)^2 + (100^2)^2}$ &
+&
+$\sqrt{(100^1)^2 + (100^2)^2}$ \\
+\hline
+3\textsuperscript{ième} &
+$\sqrt{(100^2)^2 + (100^3)^2}$ &
+&
+$\sqrt{(100^2)^2 + (100^3)^2}$ \\
+\hline
+4\textsuperscript{ième} &
+$\sqrt{(100^3)^2 + (100^4)^2}$ &
+&
+$\sqrt{(100^3)^2 + (100^4)^2}$ \\
+\hline
+5\textsuperscript{ième} &
+$\sqrt{(100^4)^2 + (100^5)^2}$ &
+&
+$\sqrt{(100^4)^2 + (100^5)^2}$ \\
+\hline
+6\textsuperscript{ième} &
+$\sqrt{(100^5)^2 + (100^6)^2}$ &
+Substitution &
+$\sqrt{(100^6)^2 + (100^7)^2}$ \\
+\hline
+7\textsuperscript{ième} &
+$\sqrt{(100^6)^2 + (100^7)^2}$ &
+&
+$\sqrt{(100^7)^2 + (100^8)^2}$ \\
+\hline
+8\textsuperscript{ième} &
+$\sqrt{(100^7)^2 + (100^8)^2}$ &
+$\times (100 - 100^{-1})$ &
+$\sqrt{(100^8)^2 + (100^9)^2}$ \\
+\hline
+9\textsuperscript{ième} &
+$\sqrt{(100^8 - 100^6)^2 + (100^9 - 100^7)^2}$ &
+&
+$\sqrt{(100^9 - 100^7)^2 + (100^{10} - 100^8)^2}$ \\
+\hline
+10\textsuperscript{ième} &
+$\sqrt{(100^9 - 100^7)^2 + (100^{10} - 100^8)^2}$ &
+&
+$\sqrt{(100^{10} - 100^8)^2 + (100^{11} - 100^9)^2}$ \\
+\hline
+\textbf{Somme} &
+$\sqrt{1.020201125\times 10^{40}}$ &
+&
+$\sqrt{1.02020203\times 10^{44}}$ \\
+\hline
+\end{tabular}
+\end{center}
+\subsection*{Détermination du nombre premier pour 10 racines (rapport 1/100)}
+
+\textbf{Digamma (8\textsuperscript{ième} position)} :
+
+\[
+\sqrt{(100^7)^2 + (100^8)^2}
+= \sqrt{1.0001\times 10^{32}}
+\]
+
+\textbf{Digamma calculé} :
+
+\[
+\sqrt{1.020201125\times 10^{40}}
++
+\sqrt{1.0001\times 10^{32}}
+=
+\sqrt{1.020403155\times 10^{40}}
+\]
+
+Le nombre premier associé est obtenu par :
+
+\[
+\frac{
+\sqrt{1.02020203\times 10^{44}}
+-
+\sqrt{1.020403155\times 10^{40}}
+}{
+\sqrt{(100^5)^2 + (100^6)^2}
+}
+= 9998990143
+\]
+
+Ainsi, 9998990143 est bien un nombre premier.
+\begin{pycode}
+import sympy as sp
+
+sqrt = sp.sqrt
+
+print("=== VALIDATION POUR 10 RACINES (rapport 1/100) ===\n")
+
+# 1. Digamma (8e position)
+digamma = sqrt((100**7)**2 + (100**8)**2)
+print("Digamma (8e position) =", sp.N(digamma, 12))
+
+# 2. Digamma calculé (addition)
+digamma_calc = sqrt(1.020201125e40) + sqrt(1.0001e32)
+print("Digamma calculé =", sp.N(digamma_calc, 12))
+
+# 3. Rapport final
+rapport = (sqrt(1.02020203e44) - digamma_calc) / sqrt((100**5)**2 + (100**6)**2)
+print("Rapport final =", sp.N(rapport, 12))
+
+# 4. Vérification de la primalité
+print("\n9998990143 est-il premier ?", sp.isprime(9998990143))
+\end{pycode}
+\newpage
+\begin{center}
+\textbf{\Large La Géométrie du spectre des nombres premiers}\\[1.5em]
+
+\textbf{Par :}\\
+Philippe Thomas Savard\\[1em]
+
+Le sept janvier deux mille vingt-six\\[0.5em]
+
+Lieu : Lévis, Chaudière-Appalaches, Canada, province de Québec.
+\end{center}
+\end{document}
+
+
