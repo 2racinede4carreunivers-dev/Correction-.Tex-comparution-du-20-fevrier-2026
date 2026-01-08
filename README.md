@@ -1,4 +1,4 @@
-# Correction .Tex - Comparution du 20 février 2026
+# Correction LaTeX - Comparution du 20 février 2026
 
 Ce dépôt contient le document LaTeX pour la comparution prévue le 20 février 2026.
 
@@ -57,6 +57,8 @@ latexmk -c
 3. Compilez le document pour générer le PDF
 4. Vérifiez le résultat et ajustez la mise en forme si nécessaire
 
-## Aide
+## Ressources
 
-Pour toute correction ou amélioration du document, utilisez GitHub Copilot pour obtenir de l'assistance.
+Pour plus d'informations sur LaTeX :
+- Documentation LaTeX officielle : https://www.latex-project.org/
+- Guide de rédaction en français : https://fr.wikibooks.org/wiki/LaTeX
