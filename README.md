@@ -59,6 +59,15 @@ latexmk -c
 
 ## Ressources
 
+### En cas d'erreur de compilation
+
+Consultez le fichier [TROUBLESHOOTING.md](TROUBLESHOOTING.md) pour les solutions aux erreurs courantes, notamment :
+- "Paragraph ended before \text@command was complete"
+- "Undefined control sequence"
+- "Missing $ inserted"
+
+### Documentation LaTeX
+
 Pour plus d'informations sur LaTeX :
 - Documentation LaTeX officielle : https://www.latex-project.org/
 - Guide de rédaction en français : https://fr.wikibooks.org/wiki/LaTeX
